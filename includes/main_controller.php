@@ -332,6 +332,7 @@ class MainController {
 		 }
 		 
 		//print_r($user);
+		 $user ['password'] = sha1 ( $user ['password'] );
 		$this->db->ChangeUserPassword($user);
 		$name = $user ['firstname'] . ' ' . $user ['lastname'];
 		$subject = "kootSMS Password Changed " ;

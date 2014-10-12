@@ -122,7 +122,7 @@ function calcHeight()
 			 
 			<h1> Reset Password:  </h1>
 			 <?php //print_r($user);?>
-<form method="post" action="<?php echo BASE_URL;?>/includes/app_controller.php">
+<form method="post" action="includes/app_controller.php">
 			 
 			<div class="main_popup1_1">
 			<p>Password</p>

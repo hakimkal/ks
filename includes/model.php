@@ -148,7 +148,7 @@ class MainModel {
 		$qry = 'update users set ';
 	
 		$qry .= "token =''," ;
-		$qry .= "password ='". mysql_escape_string(sha1 ( $user ['password']))."'" ;
+		$qry .= "password ='". mysql_escape_string( $user ['password'])."'" ;
 		$qry .= " where users.id =" . $package['id'];
 		print_r($qry);
 		return $this->execQuery ( $qry );
