@@ -49,8 +49,9 @@ class MainModel {
 		
 		$qry .= "'" . mysql_escape_string ( $user ['email'] ) . "'" . ' and password=';
 		$qry .= "'" . mysql_escape_string ( sha1 ( $user ['password'] ) ) . "'" . ';';
+		print_r($qry);
 		$singleUser = $this->execSingleQueryResult ( $qry );
-		// print_r($singleUser);
+	 print_r($singleUser);
 		if ($singleUser ['singleRecord'] == 1) {
 			$qry = "";
 			$singleUser = null;
@@ -144,14 +145,14 @@ class MainModel {
 	
 	// change password 
 	public function ChangeUserPassword($package = array()) {
-		print_r($package);
+		 print_r($package);
 		$qry = 'update users set ';
 	
 		$qry .= "token =''," ;
-		$qry .= "password ='". mysql_escape_string( $user ['password'])."'" ;
+		$qry .= "password ='". mysql_escape_string( $package ['password'])."'" ;
 		$qry .= " where users.id =" . $package['id'];
 		print_r($qry);
-		return $this->execQuery ( $qry );
+		 return $this->execQuery ( $qry );
 	}
 	// add Package
 	public function addPackage($package = array()) {

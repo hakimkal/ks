@@ -294,14 +294,14 @@ class MainController {
 	
 	
 	
-		if ($this->sendEmailToSupport ( $email, $name, $subject, $htmlMessage, $plainMessage )) {
+		  if ($this->sendEmailToSupport ( $email, $name, $subject, $htmlMessage, $plainMessage )) {
 			$_SESSION ['success'] = "Your password request link will be sent to your email shortly, Please check and follow the link.";
 		}
 	
 		else {
 				
-			// $_SESSION['error'] = "You signup was successful but we are unable to send you an email.";
-		}
+			// $_SESSION['error'] = "Your signup was successful but we are unable to send you an email.";
+		} 
 		$this->redirect("index.php");
 	}
 	
@@ -327,12 +327,13 @@ class MainController {
 		 if($user['password'] != $user['password_verify']){
 		 	
 		 	$_SESSION['error'] = "Password mismatch!";
-		 	$this->redirect($_SERVER['HTTP_REFERER']);
+		 	$this->redirect($_SERVER['HTTP_REFERER'],true);
 		 	exit();
 		 }
 		 
-		//print_r($user);
-		 $user ['password'] = sha1 ( $user ['password'] );
+		// print_r($user);
+		 $user ['password'] = sha1( trim($user ['password']) );
+		// print_r($user);
 		$this->db->ChangeUserPassword($user);
 		$name = $user ['firstname'] . ' ' . $user ['lastname'];
 		$subject = "kootSMS Password Changed " ;
@@ -349,15 +350,15 @@ class MainController {
 		$plainMessage .= "You have successfully changed your password.";
 		 
 	
-		if ($this->sendEmailToSupport ( $email, $name, $subject, $htmlMessage, $plainMessage )) {
+		  if ($this->sendEmailToSupport ( $email, $name, $subject, $htmlMessage, $plainMessage )) {
 			$_SESSION ['success'] = "You have successfully changed your password, Please do login.";
 		}
 	
 		else {
 	
 			// $_SESSION['error'] = "You signup was successful but we are unable to send you an email.";
-		}
-		$this->redirect("index.php");
+		} 
+		 $this->redirect("index.php");
 	}
 	// redirect to the page
 	public function redirect($page, $external = false) {

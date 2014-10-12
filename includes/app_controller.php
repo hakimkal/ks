@@ -64,7 +64,8 @@ if ($_POST ['Session'] && ! ($_SESSION ['User'])) {
 		$mc->userLounge ();
 	} else {
 		$_SESSION ['error'] = " Invalid login credentials";
-		$mc->redirect ( 'index.php' );
+		print_r($user);
+	 $mc->redirect ( 'index.php' );
 	}
 } elseif ($_POST ['Session'] && ($_SESSION ['User'])) {
 	$mc->userLounge ();
