@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>My Account</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300italic,400italic,600,600italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Crete+Round' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Crete+Round' rel='stylesheet' type='text/css'>
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+
+ <!-- pop up -->
+	  	<link rel="stylesheet" href="../stylesheets/reveal2.css">	
+	  	
+		<!-- Attach necessary scripts -->
+		<!-- <script type="text/javascript" src="jquery-1.4.4.min.js"></script> -->
+		<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.min.js"></script>
+		<script type="text/javascript" src="../javascripts/jquery.reveal.js"></script>
+<!-- pop up -->
+  
+
+</head>
+<body>
+
+<div id="myModal" class="reveal-modal">
+			
+			<div class="main_popup">
+			<div class="main_popup1">
+			<div class="main_popup1_1">
+			<h3>Edit Your Account</h3>
+			</div>
+			<div class="main_popup1_1">
+			<p>Email</p>
+			</div>
+			<div class="main_popup1_1">
+			<input type="text" name="email" id="email" class="main_input_inner">
+			</div>
+			<div class="main_popup1_1">
+			<p>Password</p>
+			</div>
+			<div class="main_popup1_1">
+			<input type="text" name="email" id="email" class="main_input_inner">
+			</div>
+			<div class="main_popup1_1_button">
+			<button type="submit" id="button" name="button" class="login_button_inner">Update</button>
+			</div>
+			
+			
+			</div>
+			</div>
+			
+			<a class="close-reveal-modal"><img src="../images/cross.png"></a>
+		
+		</div>
+		
+		
+		<div id="myModal2" class="reveal-modal">
+			
+			<div class="main_popup">
+			<div class="main_popup1">
+			<div class="main_popup1_1">
+			<h1>Change  Password</h1>
+			</div>
+			
+			<div class="main_popup1_1">
+			<p>Password</p>
+			</div>
+			<div class="main_popup1_1">
+			<input type="text" name="email" id="email" class="main_input_inner">
+			</div>
+			
+			
+			<div class="main_popup1_1_button">
+			<button type="submit" id="button" name="button" class="login_button_inner">Update</button>
+			</div>
+			
+			
+			</div>
+			</div>
+			
+			<a class="close-reveal-modal"><img src="../images/cross.png"></a>
+		
+		</div>
+
+<div id="myModal3" class="reveal-modal">
+			
+			<div class="main_popup">
+			<div class="main_popup1">
+			<div class="main_popup1_1">
+			<h1>Modify Address</h1>
+			</div>
+			
+			<div class="main_popup1_1">
+			<p>Address</p>
+			</div>
+			<div class="main_popup1_1">
+			<textarea type="text" name="email" id="email" style="width:94%;"></textarea>
+			</div>
+			
+			
+			<div class="main_popup1_1_button">
+			<button type="submit" id="button" name="button" class="login_button_inner">Update</button>
+			</div>
+			
+			
+			</div>
+			</div>
+			
+			<a class="close-reveal-modal"><img src="../images/cross.png"></a>
+		
+		</div>
+        
+        <div id="myModal4" class="reveal-modal">
+			
+			<div class="main_popup">
+			<div class="main_popup1">
+			<div class="main_popup1_1">
+			<h1>Subscribe</h1>
+			</div>
+			
+			<div class="main_popup1_1">
+			<p>Subscribe</p>
+			</div>
+			<div class="main_popup1_1">
+			<input type="text" name="email" id="email" class="main_input_inner">
+			</div>
+			
+			
+			<div class="main_popup1_1_button">
+			<button type="submit" id="button" name="button" class="login_button_inner">Update</button>
+			</div>
+			
+			
+			</div>
+			</div>
+			
+			<a class="close-reveal-modal"><img src="../images/cross.png"></a>
+		
+		</div>
+        
+        
+        <div id="myModal5" class="reveal-modal">
+			
+			<div class="main_popup">
+			<div class="main_popup1">
+			<div class="main_popup1_1">
+			<h1>Un subscribe</h1>
+			</div>
+			
+			<div class="main_popup1_1">
+			<p>Subscribe</p>
+			</div>
+			<div class="main_popup1_1">
+			<input type="text" name="email" id="email" class="main_input_inner">
+			</div>
+			
+			
+			<div class="main_popup1_1_button">
+			<button type="submit" id="button" name="button" class="login_button_inner">Update</button>
+			</div>
+			
+			
+			</div>
+			</div>
+			
+			<a class="close-reveal-modal"><img src="../images/cross.png"></a>
+		
+		</div>
+        
+
+<div id="maincontainer">
+  <section id="product">
+    <div class="container">
+     
+      <div class="row" style="margin-top:100px;">
+        
+        <!-- My Account-->
+        <div class="col-lg-9">
+<h1 class="heading1"><span class="maintext">My Accounts</span><span class="subtext">View All your account information</span></h1>        
+              <h3 class="heading3">My Accounts</h3>
+          <div class="myaccountbox">
+            <ul>
+              <li>
+                <a href="#" data-reveal-id="myModal"> Edit your account information</a>
+              </li>
+              <li>
+                <a href="#" data-reveal-id="myModal2"> Change your password</a>
+              </li>
+              <li>
+                <a href="#" data-reveal-id="myModal3">Modify your address book entries</a>
+              </li>
+              <li>
+                <a href="#">Modify your wish list</a>
+              </li>
+            </ul>
+          </div>
+         
+          
+          <h3 class="heading3">Newsletter</h3>
+          <div class="myaccountbox">
+            <ul>
+              <li>
+                <a href="#" data-reveal-id="myModal4"> Subscribe</a>
+                <a href="#" data-reveal-id="myModal5"> unsubscribe to newsletter</a>
+              </li>
+            </ul>
+          </div>
+       
+          
+          
+          
+          
+          
+          
+          
+          
+          
+        </div>
+        
+        <!-- Sidebar Start-->
+          <aside class="col-lg-3">
+            <div class="sidewidt">
+              <h2 class="heading2"><span>Account</span></h2>
+              <ul class="nav nav-list categories">
+                <li>
+                  <a href="#"> My Account</a>
+                </li>
+                <li>
+                  <a href="#" data-reveal-id="myModal">Edit Account</a>
+                </li>
+                <li>
+                  <a href="#" data-reveal-id="myModal2">Password</a>
+                </li>
+               
+                <li>
+                  <a href="#">Logout</a>
+                </li>
+              </ul>
+            </div>
+          </aside>
+        <!-- Sidebar End-->
+      </div>
+    </div>
+  </section>
+</div>
+
+
+
+<script src="js/jquery.js"></script> 
+<script src="js/bootstrap.js"></script> 
+<!--<script src="js/respond.min.js"></script> 
+<script src="js/application.js"></script> 
+<script src="js/bootstrap-tooltip.js"></script> 
+<script defer src="js/jquery.fancybox.js"></script> 
+<script defer src="js/jquery.flexslider.js"></script> 
+<script type="text/javascript" src="js/jquery.tweet.js"></script> 
+<script  src="js/cloud-zoom.1.0.2.js"></script> 
+<script  type="text/javascript" src="js/jquery.validate.js"></script> 
+<script type="text/javascript"  src="js/jquery.carouFredSel-6.1.0-packed.js"></script> 
+<script type="text/javascript"  src="js/jquery.mousewheel.min.js"></script> 
+<script type="text/javascript"  src="js/jquery.touchSwipe.min.js"></script> 
+<script type="text/javascript"  src="js/jquery.ba-throttle-debounce.min.js"></script> 
+<script src="js/jquery.isotope.min.js"></script> -->
+<script defer src="js/custom.js"></script>
+</body>
+</html>
