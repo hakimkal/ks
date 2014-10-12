@@ -198,7 +198,7 @@ if(($sms_credit_balance['zonesms_credits'] <= 0) || ($sms_credit_balance <= 0)){
         <label>Select City(ies) </label>
         
         <?php $zc = $mc->getZoneAreasAndCitiesGrouped();
-       print_r($zc);
+     //  print_r($zc);
        
         ?>
       

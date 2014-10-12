@@ -554,10 +554,13 @@ class MainModel {
 		//$qry = "Select    zone_sms_areas.name as  name, zone_sms_areas.description as description , zone_sms_areas.created as created ,zone_sms_cities.id as id, zone_sms_cities.name as cities ,GROUP_CONCAT(DISTINCT zone_sms_cities.name) from zone_sms_areas  LEft JOIN zone_sms_cities ON zone_sms_areas.id=zone_sms_cities.zone_sms_area_id GROUP BY zone_sms_cities.zone_sms_area_id ;
 		//$qry = "Select    zone_sms_areas.id as zone_sms_area_id ,zone_sms_areas.name as  name, zone_sms_cities.id as zone_sms_cities_id,  zone_sms_cities.name as cities   from zone_sms_areas  right JOIN zone_sms_cities ON zone_sms_areas.id=zone_sms_cities.zone_sms_area_id   ORDER BY zone_sms_areas.name ASC ;
 		
-		$qry = "Select zone_sms_areas.id as zone_sms_area_id ,zone_sms_areas.name as  name, zone_sms_cities.id as zone_sms_cities_id, GROUP_CONCAT(DISTINCT zone_sms_cities.name) as cities   from zone_sms_areas right JOIN zone_sms_cities ON zone_sms_areas.id=zone_sms_cities.zone_sms_area_id   ORDER BY zone_sms_areas.name ASC ;
+		$qry = "Select zone_sms_areas.id as zone_sms_area_id ,
+				zone_sms_areas.name as  name,  GROUP_CONCAT(DISTINCT zone_sms_cities.name) as cities   
+				from zone_sms_areas left JOIN zone_sms_cities ON zone_sms_areas.id=zone_sms_cities.zone_sms_area_id  
+				 GROUP BY zone_sms_areas.name  ;
 		
 		";
-	
+		//LEft JOIN features ON packages.id=features.package_id GROUP BY packages.title";
 		$data = $this->execGetQuery ( $qry );
 		return $data;
 	}
