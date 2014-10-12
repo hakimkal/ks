@@ -258,6 +258,12 @@ if (($_POST ['_method'] == 'edit_zone_sms_area_city') && ($_POST ['ZoneSMSAreaCi
 	$mc->updateZoneSMSAreaCity( $_POST ['ZoneSMSAreaCity'] );
 }
 
+
+if($_POST['ForgotUserPass'] && !$_POST['_method'])
+{
+//	print_r($_POST);
+	$mc->requestPasswordLink($_POST['ForgotUserPass']);
+}
 //Send BulkSMS Function
 function sendBulkSMS($numbers, $message, $url) {
 	if (isCurl ()) {

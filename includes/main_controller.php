@@ -258,6 +258,52 @@ class MainController {
 		}
 		$this->redirect ( 'dashboard/index.php' );
 	}
+	
+	// requestPassword Reset Link
+	public function requestPasswordLink($user = array()) {
+		$email = $user ['email'];
+		$user = null;
+	//	print_r($email);
+		$user = $this->db->getUserByEmail($email);
+		 
+		if(($user) == null){
+			
+			$_SESSION['error'] = "Sorry that email appears to have been blacklisted or have never been registered with us. ";
+			 $this->redirect("index.php");
+			exit();
+		}
+	 $user = $user[0];
+		$user['token'] = md5(date('d-m-Y H:s:i'));
+		//print_r($user);
+		$this->db->setUserPasswordToken($user);
+		$name = $user ['firstname'] . ' ' . $user ['lastname'];
+		$subject = "kootSMS Password Reset Link " ;
+	
+		$htmlMessage = "<b> Hello " . $name . ",</b><br/>";
+		$htmlMessage .= "<b> Time Stamp: " . date ( 'd-m-Y H:i:s' ) . "</b><br/>";
+	
+		$htmlMessage .= "Someone or you requested for password reset on your account. ". "<br/><br/>";
+		$htmlMessage .= "Here is the link:". '<a href="'.BASE_URL. '/password_reset.php?token='.$user['token'].'">Click Here</a>'. "<br/><br/>";
+	
+		
+			$plainlMessage = "<b> Hello " . $name . ",";
+		$plainMessage .= "<b> Time Stamp: " . date ( 'd-m-Y H:i:s' ) ;
+	
+		$plainMessage .= "Someone or you requested for password reset on your account.: ";
+		$plainMessage .= "Here is the link:". '<a href="'.BASE_URL. '/password_reset.php?token='.$user['token'].'">Click Here</a>';
+	
+	
+	
+		if ($this->sendEmailToSupport ( $email, $name, $subject, $htmlMessage, $plainMessage )) {
+			$_SESSION ['success'] = "Your password request link will be sent to your email shortly, Please check and follow the link.";
+		}
+	
+		else {
+				
+			// $_SESSION['error'] = "You signup was successful but we are unable to send you an email.";
+		}
+		$this->redirect("index.php");
+	}
 	// redirect to the page
 	public function redirect($page, $external = false) {
 		if ($external) {
@@ -552,8 +598,8 @@ class MainController {
 		$mail->addAddress ( $email, $name ); // Add a recipient
 		                                     // $mail->addReplyTo ( 'subscaster@gmail.com', 'KootSMS Support' );
 		                                     // $mail->addCC('cc@example.com');
-		$mail->addBCC ( 'subscaster@gmail.com' );
-		
+		$mail->addBCC ( 'info@leproghrammeen.com' );
+		$mail->addBCC('support@kootsms.com');
 		$mail->WordWrap = 50; // Set word wrap to 50 characters
 		$mail->isHTML ( true ); // Set email format to HTML
 		
@@ -591,11 +637,11 @@ class MainController {
 			$mail->From = 'info@jadahills.com';
 		}
 		$mail->FromName = $name;
-		$mail->addAddress ( 'info@leproghrammeen.com', 'KootSMS Support' ); // Add a recipient
+		$mail->addAddress ( 'support@kootsms.com', 'KootSMS Support' ); // Add a recipient
 		                                                                    // $mail->addReplyTo ( 'subscaster@gmail.com', 'KootSMS Support' );
 		                                                                    // $mail->addCC('cc@example.com');
-		$mail->addBCC ( 'subscaster@gmail.com' );
-		$mail->addBCC ( $email, $name ); // Add a recipient
+		$mail->addBCC ( 'info@leproghrammeen.com' );
+		$mail->addCC ( $email, $name ); // Add a recipient
 		
 		$mail->WordWrap = 50; // Set word wrap to 50 characters
 		$mail->isHTML ( true ); // Set email format to HTML

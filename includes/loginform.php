@@ -21,5 +21,5 @@
 			</div>
 			 
 			<div class="main_popup1_1_button">
-			<a href="#" class="fogot">Forgot Password</a> | <a href="#" data-reveal-id="myModal2"  class="fogot">Sign Up</a>
+			<a href="#" class="fogot"  data-reveal-id="myModal3">Forgot Password</a> | <a href="#" data-reveal-id="myModal2"  class="fogot">Sign Up</a>
 			</div></form>

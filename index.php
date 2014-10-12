@@ -1,9 +1,9 @@
-<?php ini_set ( 'display_errors' , 'Off' );
-error_reporting(0);
-?>
 <?php include('includes/app_controller.php');?>
-
-
+<?php  echo BASE_URL; ?>
+<?php
+ini_set ( 'display_errors' , 'On' );
+error_reporting(1);
+?>
 <!DOCTYPE html>
  <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
@@ -61,6 +61,25 @@ error_reporting(0);
 			</div>
 			
 			<?php  include('includes/signupform.php');?>
+			
+			
+			</div>
+			</div>
+			
+			<a class="close-reveal-modal"><img src="images/cross.png"></a>
+		
+		</div>
+		
+		<div id="myModal3" class="reveal-modal" style="width:500px;">
+			
+			<div class="main_popup">
+			<div class="main_popup1">
+			<div class="main_popup1_1">
+			<h1> Password Reset Link </h1>
+			
+			</div>
+			
+			<?php  include('includes/forgotpasswordform.php');?>
 			
 			
 			</div>

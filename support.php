@@ -82,6 +82,23 @@ function calcHeight()
 			<a class="close-reveal-modal"><img src="images/cross.png"></a>
 		
 		</div>
+		<div id="myModal3" class="reveal-modal" style="width:500px;">
+			
+			<div class="main_popup">
+			<div class="main_popup1">
+			<div class="main_popup1_1">
+			<h1>Register</h1>
+			</div>
+			
+			<?php  include('includes/forgotpasswordform.php');?>
+			
+			
+			</div>
+			</div>
+			
+			<a class="close-reveal-modal"><img src="images/cross.png"></a>
+		
+		</div>
 		
 
 <div id="main-container">

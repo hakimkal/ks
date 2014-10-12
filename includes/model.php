@@ -114,6 +114,27 @@ class MainModel {
 		$data = $this->execGetQuery ( $qry );
 		return $data;
 	}
+	
+	// get UserByEmails
+	public function getUserByEmail($filter) {
+		$qry = "Select id, firstname as firstname, lastname as lastname , email as email,mobile as mobile, token as token,created as created from users where email= '" . $filter . "'";
+	
+		$data = $this->execGetQuery ( $qry );
+		return $data;
+	}
+	
+	// Set User Token for password reset
+	public function setUserPasswordToken($package = array()) {
+	 	print_r($package);
+		$qry = 'update users set ';
+	
+		$qry .= "token = '" . mysql_escape_string ( $package ['token'] ) . "'" ;
+		
+		$qry .= " where users.id =" . $package['id'];
+		print_r($qry);
+		return $this->execQuery ( $qry );
+	}
+	
 	// add Package
 	public function addPackage($package = array()) {
 		$qry = 'INSERT INTO packages(title,price, vat,details ,image_path,created) values(';
