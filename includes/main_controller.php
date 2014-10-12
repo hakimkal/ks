@@ -304,6 +304,60 @@ class MainController {
 		}
 		$this->redirect("index.php");
 	}
+	
+	
+	//get user from token
+	public function getUserFromToken($token){
+		
+		$user = $this->db->getUserByToken($token);
+		if(empty($user)){
+			$_SESSION['error'] = "This link must have expired, please request another link and make sure to copy the correct URL to your browser address field.";
+		$this->redirect("index.php");
+		exit();
+		}
+		
+		else{
+			return $user;
+		}
+	}
+	
+	// changePassword
+	public function changePassword($user = array()) {
+		 
+		 if($user['password'] != $user['password_verify']){
+		 	
+		 	$_SESSION['error'] = "Password mismatch!";
+		 	$this->redirect($_SERVER['HTTP_REFERER']);
+		 	exit();
+		 }
+		 
+		//print_r($user);
+		$this->db->ChangeUserPassword($user);
+		$name = $user ['firstname'] . ' ' . $user ['lastname'];
+		$subject = "kootSMS Password Changed " ;
+	
+		$htmlMessage = "<b> Hello " . $name . ",</b><br/>";
+		$htmlMessage .= "<b> Time Stamp: " . date ( 'd-m-Y H:i:s' ) . "</b><br/>";
+	
+		$htmlMessage .= "You have successfully changed your password. ". "<br/><br/>";
+		 
+	
+		$plainlMessage = "<b> Hello " . $name . ",";
+		$plainMessage .= "<b> Time Stamp: " . date ( 'd-m-Y H:i:s' ) ;
+	
+		$plainMessage .= "You have successfully changed your password.";
+		 
+	
+		if ($this->sendEmailToSupport ( $email, $name, $subject, $htmlMessage, $plainMessage )) {
+			$_SESSION ['success'] = "You have successfully changed your password, Please do login.";
+		}
+	
+		else {
+	
+			// $_SESSION['error'] = "You signup was successful but we are unable to send you an email.";
+		}
+		$this->redirect("index.php");
+	}
 	// redirect to the page
 	public function redirect($page, $external = false) {
 		if ($external) {

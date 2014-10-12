@@ -264,6 +264,12 @@ if($_POST['ForgotUserPass'] && !$_POST['_method'])
 //	print_r($_POST);
 	$mc->requestPasswordLink($_POST['ForgotUserPass']);
 }
+
+if($_POST['ResetPass'] && $_POST['_method'])
+{
+	//	print_r($_POST);
+	$mc->changePassword($_POST['ResetPass']);
+}
 //Send BulkSMS Function
 function sendBulkSMS($numbers, $message, $url) {
 	if (isCurl ()) {

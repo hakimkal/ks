@@ -122,6 +122,13 @@ class MainModel {
 		$data = $this->execGetQuery ( $qry );
 		return $data;
 	}
+	// get UserByToken
+	public function getUserByToken($filter) {
+		$qry = "Select id, firstname as firstname, lastname as lastname , email as email,mobile as mobile, token as token,created as created from users where token= '" . $filter . "'";
+	
+		$data = $this->execGetQuery ( $qry );
+		return $data;
+	}
 	
 	// Set User Token for password reset
 	public function setUserPasswordToken($package = array()) {
@@ -135,6 +142,17 @@ class MainModel {
 		return $this->execQuery ( $qry );
 	}
 	
+	// change password 
+	public function ChangeUserPassword($package = array()) {
+		print_r($package);
+		$qry = 'update users set ';
+	
+		$qry .= "token =''," ;
+		$qry .= "password ='". mysql_escape_string(sha1 ( $user ['password']))."'" ;
+		$qry .= " where users.id =" . $package['id'];
+		print_r($qry);
+		return $this->execQuery ( $qry );
+	}
 	// add Package
 	public function addPackage($package = array()) {
 		$qry = 'INSERT INTO packages(title,price, vat,details ,image_path,created) values(';
