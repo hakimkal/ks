@@ -24,7 +24,7 @@ class MainModel {
 		$qry .= ')';
 		
 		$user_id = $this->execInsertQuery ( $qry );
-		if (isset ( $user ['Package'] ) && $user_id > 0) {
+		if (!empty ( $user ['Package'] ) && ($user_id > 0) ){
 			
 			$query = 'INSERT INTO user_packages(package_id, user_id,price_paid,start_period,end_period,discounted,payment_method,sms_unit)
 					 values(';
@@ -38,9 +38,11 @@ class MainModel {
 			$query .= "'" . mysql_escape_string ( $user ['Package'] ['payment_method'] ) . "',";
 			$query .= "'" . mysql_escape_string ( $user ['Package'] ['sms_unit'] ) . "'";
 			$query .= ')';
+			return $this->execQuery ( $query );
 		}
+		return true;
 		// print_r($query);
-		return $this->execQuery ( $query );
+		
 	}
 	
 	// Authenticate user and return data for session

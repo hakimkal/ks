@@ -1,6 +1,6 @@
 <?php
-ini_set ( 'display_errors', 'Off' );
-error_reporting ( 0 );
+//ini_set ( 'display_errors', 'Off' );
+//error_reporting ( 0 );
 ?>
 <?php
 
@@ -28,12 +28,12 @@ if (! empty ( $_SESSION ['User'] ) && ($_SESSION ['User'] ['user_type'] == 'cust
 	$sms_credit_balance = $mc->getSMSCreditBalance ( $conn, $_SESSION ['User'] ['id'] );
 }
 // get signup post form
-
+//print_r($_SESSION['User']);
 if ($_POST ['User'] && ! $_SESSION ['User'] ['id']) {
 	// print_r($_POST['User']);
 	
 	// $_SESSION['u_debug'] = $_POST['User'];
-	$mc->signUp ( $_POST ['User'] );
+	$mc->signUp ( $_POST ['User']);
 } elseif ($_POST ['User'] && $_SESSION ['User'] ['id']) {
 	
 	echo $mc->signUp ( $_POST ['User'], true );

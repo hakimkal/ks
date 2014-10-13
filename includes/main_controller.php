@@ -223,7 +223,8 @@ class MainController {
 			// $this->redirect('checkout/step2.php');
 			// $this->redirect('checkout/paypal-mockform.php');
 			$_SESSION ['jump_out'] = 1;
-			$this->redirect ( 'payment.php' );
+			//$this->redirect ( 'payment.php' );
+			$this->redirect ( 'index.php' );
 			// $this->redirect('http://paypal.com/ng',true);
 		} else {
 			// staff added
