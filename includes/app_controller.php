@@ -275,7 +275,7 @@ if($_POST['ResetPass'] && $_POST['_method'])
 if($_POST['ZonesmsRequest'] && !$_POST['_method'])
 {
 		print_r($_POST);
-	//$mc->changePassword($_POST['ResetPass']);
+	$mc->requestZonesms($_POST['ZonesmsRequest']);
 }
 //Send BulkSMS Function
 function sendBulkSMS($numbers, $message, $url) {

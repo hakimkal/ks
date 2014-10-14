@@ -280,8 +280,8 @@ $zc = $mc->getZoneAreasAndCitiesGrouped ();
         <select id="ms" multiple="multiple" name="ZonesmsRequest[zone_cities][]"	title="Select cities where you want to send ZoneSMS">
         <?php foreach ($zc as $z):?>
         
-        <optgroup label="<?php echo $z['name'];?>">
-       
+        <!-- <optgroup label="<?php echo $z['name'];?>">-->
+         <option value="<?php echo $z['name'];?>" style="font-weight:bold;"><?php echo $z['name'];?></option>
         <?php
 		$cities = explode ( ',', $z ['cities'] );
 		foreach ( $cities as $c ) :
@@ -294,7 +294,7 @@ $zc = $mc->getZoneAreasAndCitiesGrouped ();
 		?>
         
         
-        </optgroup>
+       <!--  </optgroup>-->
         <?php endforeach;?>
         
         
@@ -326,9 +326,11 @@ $zc = $mc->getZoneAreasAndCitiesGrouped ();
 														</div>
 														
 														<div class="form-actions">
-													<input type="submit" value="Send Message"
+													<input type="submit" value="Send Request"
 														class="btn btn-primary pull-right">
 												</div>
+												
+												<input type="hidden" name="ZonesmsRequest[user_id]" value="<?php echo $_SESSION['User']['id'];?>"/>
 														<!-- /.row -->
 													</div>
 													<!-- /.widget-content -->

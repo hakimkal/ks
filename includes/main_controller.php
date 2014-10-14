@@ -633,6 +633,60 @@ class MainController {
 			return false;
 		}
 	}
+	
+	// request ZoneSMS
+	public function requestZonesms($requesting_user = array()) {
+		 
+		//	print_r($email);
+		$user = $this->db->getUser($requesting_user['user_id']);
+			$requesting_user['cities_zone'] = implode(',', $requesting_user['zone_cities']);
+		if(($user) == null){
+				
+			$_SESSION['error'] = "Sorry you do not  appear to be currently logged in, Please login and try again. ";
+			$this->redirect("index.php");
+			exit();
+		}
+		$user = $user[0];
+		 
+		 if($this->db->addUserZoneSMSRequest($requesting_user))
+		$name = $user ['firstname'] . ' ' . $user ['lastname'];
+		$subject = "kootSMS ZoneSMS Request Order" ;
+	
+		$htmlMessage = "<b> Hello " . $name . ",</b><br/>";
+		$htmlMessage .= "<b> Time Stamp: " . date ( 'd-m-Y H:i:s' ) . "</b><br/>";
+	
+		$htmlMessage .= "Your request  for ZoneSMS has been received and will be treated swiftly. ". "<br/><br/>";
+		$htmlMessage .= "Here is your oder details:". "<br/><br/>";
+		$htmlMessage .= "Sender ID:".$requesting_user['sender']. "<br/><br/>";
+		$htmlMessage .= "Message:".$requesting_user['message']. "<br/><br/>";
+		$htmlMessage .= "Cities:".$requesting_user['cities_zone']. "<br/><br/>";
+		
+	
+	 
+		$plainlMessage = "<b> Hello " . $name . ",";
+		$plainMessage .= "<b> Time Stamp: " . date ( 'd-m-Y H:i:s' ) ;
+	
+		$plainMessage .= "Your request  for ZoneSMS has been received and will be treated swiftly. ";
+		$plainMessage .= "Here is your oder details:" ;
+		$plainMessage .= "Sender ID:".$requesting_user['sender'] ;
+		$plainMessage .= "Message:".$requesting_user['message'] ;
+		$plainMessage .= "Cities:".$requesting_user['cities_zone'];
+		
+	
+	
+		if ($this->sendEmailToSupport ( $email, $name, $subject, $htmlMessage, $plainMessage )) {
+			$_SESSION ['success'] = "Your zonesms request have been received and will be processed shortly.";
+		}
+	
+		else {
+	
+			// $_SESSION['error'] = "Your signup was successful but we are unable to send you an email.";
+		}
+		$this->redirect("dashboard/index.php");
+	}
+	
+	
+	
 	// send email method
 	private function sendEmail($email, $name, $subject, $htmlMessage, $plainMessage) {
 		$mail = new PHPMailer ();

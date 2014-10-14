@@ -631,6 +631,28 @@ class MainModel {
 		return $this->execQuery ( $qry );
 	}
 	
+	
+	public function addUserZoneSMSRequest($areas=array()){
+		//$qry = 'START TRANSACTION;';
+		//foreach ($areas['areas'] as $k){
+		$qry = 'Insert into user_zone_sms(`user_id`,`sender`,`message`,`cities_zones`,`delivery_started`,`delivery_end`,`created`,`modified`) values(';
+		$qry .= "'" . mysql_escape_string ( $areas['user_id']) . "'" . ',';
+		$qry .= "'" . mysql_escape_string ( $areas['sender']) . "'" . ',';
+		$qry .= "'" . mysql_escape_string ( $areas['message']) . "'" . ',';
+		$qry .= "'" . mysql_escape_string ( $areas['cities_zones']) . "'" . ',';
+		$qry .= "'" . mysql_escape_string ( $areas['delivery_started']) . "'" . ',';
+		$qry .= "'" . mysql_escape_string ( $areas['delivery_end']) . "'" . ',';
+		
+		$qry .= "NOW(),";
+		$qry .= "NOW());";
+	
+		//}
+	
+		//	$qry.= 'COMMIT;';
+	
+		return $this->execInsertQuery($qry);
+		}
+	
 	//Private functions
 	
 	private function get_pdo_count($conn, $query) {
