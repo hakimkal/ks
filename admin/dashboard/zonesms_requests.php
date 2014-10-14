@@ -1,4 +1,4 @@
-<?php $pageName = 'All '. $_GET['category'];?>
+<?php $pageName = "Zonesms Requests"?>
 <?php require('admin_top.php');
 ?>
  
@@ -13,7 +13,7 @@ $Users =  $mc->getUsers($_GET['category']);
 					<div class="col-md-12">
 						<div class="widget box">
 							<div class="widget-header">
-								<h4><i class="icon-reorder"></i> All <?php echo ucwords($_GET['category']);?> </h4>
+								<h4><i class="icon-reorder"></i>Zonesms Requests </h4>
 								<div class="toolbar no-padding">
 									<div class="btn-group">
 										<span class="btn btn-xs widget-collapse"><i class="icon-angle-down"></i></span>
@@ -37,7 +37,7 @@ $Users =  $mc->getUsers($_GET['category']);
 									 
 									<tbody>
 										  <?php 
-								 require('../../includes/paginator.class.php');
+							//	 require('../../includes/paginator.class.php');
 								 try {
 								 	
 									$conn = $mc->db->get_pdo_connection();

@@ -642,10 +642,16 @@ class MainModel {
 		
 		return $this->execInsertQuery ( $qry );
 	}
-	public function get_user_zone_sms_requests_count($conn) {
+	public function get_user_zone_sms_requests_count($conn,$filter= null) {
 		$table = 'user_zone_sms';
-		$query = 'SELECT COUNT(*) FROM ' . $table;
-		// print_r($query);
+		if($filter != null){
+		$query = 'SELECT COUNT(*) FROM ' . $table .'  where   '. $filter;
+		}
+		
+		else{
+			$query = 'SELECT COUNT(*) FROM ' . $table;
+		} 
+	 // print_r($query);
 		return $this->get_pdo_count ( $conn, $query );
 	}
 	// GEt User ZoneSMS Requests

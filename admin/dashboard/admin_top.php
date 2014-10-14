@@ -113,11 +113,18 @@ $mc->isAdmin(true);
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 						<i class="icon-warning-sign"></i>
-						<span class="badge"><?php echo ($notifications);?></span>
+						<?php 
+					 require('../../includes/paginator.class.php');
+						 
+						
+							$conn = $mc->db->get_pdo_connection();
+						$nos = $mc->db->get_user_zone_sms_requests_count($conn,"status='pending review'");  ?>
+						
+						<span class="badge"><?php echo ($nos);?></span>
 					</a>
 					<ul class="dropdown-menu extended notification">
 						<li class="title">
-							<p>You have <?php echo ($notifications);?> new notifications</p>
+							<p>You have <?php echo ($nos);?> new zonesms request </p>
 						</li>
 						<?php include('user_notifications.php');?>
 						 
