@@ -639,7 +639,7 @@ class MainController {
 		 
 		//	print_r($email);
 		$user = $this->db->getUser($requesting_user['user_id']);
-			$requesting_user['cities_zone'] = implode(',', $requesting_user['zone_cities']);
+			$requesting_user['cities_zones'] = implode(',', $requesting_user['zone_cities']);
 		if(($user) == null){
 				
 			$_SESSION['error'] = "Sorry you do not  appear to be currently logged in, Please login and try again. ";
@@ -685,7 +685,11 @@ class MainController {
 		$this->redirect("dashboard/index.php");
 	}
 	
-	
+	// get all zonesms requests 
+	public function getUsersZonesmsRequests($conn,  $limit_start, $limit_end) {
+		$users = $this->db->getUsersZonesmsRequests($conn,  $limit_start, $limit_end) ;
+		return $users;
+	}
 	
 	// send email method
 	private function sendEmail($email, $name, $subject, $htmlMessage, $plainMessage) {

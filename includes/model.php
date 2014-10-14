@@ -24,7 +24,7 @@ class MainModel {
 		$qry .= ')';
 		
 		$user_id = $this->execInsertQuery ( $qry );
-		if (!empty ( $user ['Package'] ) && ($user_id > 0) ){
+		if (! empty ( $user ['Package'] ) && ($user_id > 0)) {
 			
 			$query = 'INSERT INTO user_packages(package_id, user_id,price_paid,start_period,end_period,discounted,payment_method,sms_unit)
 					 values(';
@@ -42,7 +42,6 @@ class MainModel {
 		}
 		return true;
 		// print_r($query);
-		
 	}
 	
 	// Authenticate user and return data for session
@@ -51,9 +50,9 @@ class MainModel {
 		
 		$qry .= "'" . mysql_escape_string ( $user ['email'] ) . "'" . ' and password=';
 		$qry .= "'" . mysql_escape_string ( sha1 ( $user ['password'] ) ) . "'" . ';';
-		print_r($qry);
+		print_r ( $qry );
 		$singleUser = $this->execSingleQueryResult ( $qry );
-	 print_r($singleUser);
+		print_r ( $singleUser );
 		if ($singleUser ['singleRecord'] == 1) {
 			$qry = "";
 			$singleUser = null;
@@ -121,40 +120,40 @@ class MainModel {
 	// get UserByEmails
 	public function getUserByEmail($filter) {
 		$qry = "Select id, firstname as firstname, lastname as lastname , email as email,mobile as mobile, token as token,created as created from users where email= '" . $filter . "'";
-	
+		
 		$data = $this->execGetQuery ( $qry );
 		return $data;
 	}
 	// get UserByToken
 	public function getUserByToken($filter) {
 		$qry = "Select id, firstname as firstname, lastname as lastname , email as email,mobile as mobile, token as token,created as created from users where token= '" . $filter . "'";
-	
+		
 		$data = $this->execGetQuery ( $qry );
 		return $data;
 	}
 	
 	// Set User Token for password reset
 	public function setUserPasswordToken($package = array()) {
-	 	print_r($package);
+		print_r ( $package );
 		$qry = 'update users set ';
-	
-		$qry .= "token = '" . mysql_escape_string ( $package ['token'] ) . "'" ;
 		
-		$qry .= " where users.id =" . $package['id'];
-		print_r($qry);
+		$qry .= "token = '" . mysql_escape_string ( $package ['token'] ) . "'";
+		
+		$qry .= " where users.id =" . $package ['id'];
+		print_r ( $qry );
 		return $this->execQuery ( $qry );
 	}
 	
-	// change password 
+	// change password
 	public function ChangeUserPassword($package = array()) {
-		 print_r($package);
+		print_r ( $package );
 		$qry = 'update users set ';
-	
-		$qry .= "token =''," ;
-		$qry .= "password ='". mysql_escape_string( $package ['password'])."'" ;
-		$qry .= " where users.id =" . $package['id'];
-		print_r($qry);
-		 return $this->execQuery ( $qry );
+		
+		$qry .= "token ='',";
+		$qry .= "password ='" . mysql_escape_string ( $package ['password'] ) . "'";
+		$qry .= " where users.id =" . $package ['id'];
+		print_r ( $qry );
+		return $this->execQuery ( $qry );
 	}
 	// add Package
 	public function addPackage($package = array()) {
@@ -174,32 +173,30 @@ class MainModel {
 	}
 	// add credit value for customers by admin
 	public function addCreditValue($user = array()) {
-		
 		$query = 'INSERT INTO user_credit_purchases(user_id,created,modified,sms_credits_value,mms_credits_value,zonesms_credits_value,voice_msg_credits_value,';
-	    $query.= 'amount_paid,cost_per_sms,cost_per_mms,cost_per_voice,cost_per_zonesms,added_by,valid_for,expiry_date,last_modified_by)  VALUES (';
+		$query .= 'amount_paid,cost_per_sms,cost_per_mms,cost_per_voice,cost_per_zonesms,added_by,valid_for,expiry_date,last_modified_by)  VALUES (';
 		
-		$query .= $user['id']. ',';
-		$query .=  "NOW(),";
-		$query .=   "NOW(),";
-		$query .=    mysql_escape_string (trim($user ['Credit'] ['sms_credits_value']))  . ',';
-		$query .=  mysql_escape_string ( trim($user ['Credit'] ['mms_credits_value']) )   . ',';
-		$query .=  mysql_escape_string ( trim($user ['Credit'] ['zonesms_credits_value']) )   . ',';
-		$query .=   mysql_escape_string ( trim($user ['Credit'] ['voice_msg_credits_value']) ) .  ',';
-		$query .=   mysql_escape_string ( trim($user ['Credit'] ['amount_paid'] ))  . ',';
-		$query .= mysql_escape_string ( trim($user ['Credit'] ['cost_per_sms'] ))   . ',';
-		$query .=  mysql_escape_string ( trim($user ['Credit'] ['cost_per_mms'] ))   . ',';
-		$query .=   mysql_escape_string (trim( $user ['Credit'] ['cost_per_voice'] ))   . ',';
-		$query .=   mysql_escape_string (trim( $user ['Credit'] ['cost_per_zonesms']) )  . ',';
-		$query .= "'" . mysql_escape_string (trim( $user ['Credit'] ['added_by'] )) . "'" . ',';
-		$query .= "'" . mysql_escape_string ( trim($user ['Credit'] ['valid_for'] )) . " days'" . ',';
-		$query .=  "'".trim(date ( 'Y-m-d H:i:s', strtotime ( "+" . $user ['Credit'] ['valid_for'] . " days" ) ) ) ."'".   ',';
-		$query .= "'" . mysql_escape_string (trim( $user ['Credit'] ['last_modified_by']) ) . "')";
-		 
+		$query .= $user ['id'] . ',';
+		$query .= "NOW(),";
+		$query .= "NOW(),";
+		$query .= mysql_escape_string ( trim ( $user ['Credit'] ['sms_credits_value'] ) ) . ',';
+		$query .= mysql_escape_string ( trim ( $user ['Credit'] ['mms_credits_value'] ) ) . ',';
+		$query .= mysql_escape_string ( trim ( $user ['Credit'] ['zonesms_credits_value'] ) ) . ',';
+		$query .= mysql_escape_string ( trim ( $user ['Credit'] ['voice_msg_credits_value'] ) ) . ',';
+		$query .= mysql_escape_string ( trim ( $user ['Credit'] ['amount_paid'] ) ) . ',';
+		$query .= mysql_escape_string ( trim ( $user ['Credit'] ['cost_per_sms'] ) ) . ',';
+		$query .= mysql_escape_string ( trim ( $user ['Credit'] ['cost_per_mms'] ) ) . ',';
+		$query .= mysql_escape_string ( trim ( $user ['Credit'] ['cost_per_voice'] ) ) . ',';
+		$query .= mysql_escape_string ( trim ( $user ['Credit'] ['cost_per_zonesms'] ) ) . ',';
+		$query .= "'" . mysql_escape_string ( trim ( $user ['Credit'] ['added_by'] ) ) . "'" . ',';
+		$query .= "'" . mysql_escape_string ( trim ( $user ['Credit'] ['valid_for'] ) ) . " days'" . ',';
+		$query .= "'" . trim ( date ( 'Y-m-d H:i:s', strtotime ( "+" . $user ['Credit'] ['valid_for'] . " days" ) ) ) . "'" . ',';
+		$query .= "'" . mysql_escape_string ( trim ( $user ['Credit'] ['last_modified_by'] ) ) . "')";
+		
 		// $query .= "'" . mysql_escape_string ( date ( 'Y-m-d H:i:s', strtotime ( "+30 days" ) ) ) . "'" . ',';
 		
-		
-		 //print_r($query);
-		$add_purchase = $this->execInsertQuery(trim($query));
+		// print_r($query);
+		$add_purchase = $this->execInsertQuery ( trim ( $query ) );
 		$credit_balance = array ();
 		$credit_balance ['Credit'] ['user_id'] = $user ['id'];
 		$credit_balance ['Credit'] ['sms_credits'] = $user ['Credit'] ['sms_credits_value'];
@@ -208,19 +205,18 @@ class MainModel {
 		$credit_balance ['Credit'] ['voice_msg_credits'] = $user ['Credit'] ['voice_msg_credits_value'];
 		$credit_balance ['Credit'] ['added_by'] = $user ['Credit'] ['added_by'];
 		$credit_balance ['Credit'] ['last_modified_by'] = $user ['Credit'] ['last_modified_by'];
-		$credit_balance["Credit"]['valid_for'] = $user ['Credit'] ['valid_for'];
-		$credit_balance ['Credit'] ['expiry_date'] = (date ( 'Y-m-d H:i:s', strtotime ( "+" . $user ['Credit'] ['valid_for'] . " days" ) ) );
- 	 $update_user_balance = $this->updateUserCreditBalance ( $credit_balance );
- 	 return true;
+		$credit_balance ["Credit"] ['valid_for'] = $user ['Credit'] ['valid_for'];
+		$credit_balance ['Credit'] ['expiry_date'] = (date ( 'Y-m-d H:i:s', strtotime ( "+" . $user ['Credit'] ['valid_for'] . " days" ) ));
+		$update_user_balance = $this->updateUserCreditBalance ( $credit_balance );
+		return true;
 	}
 	// update user credit balance
 	public function updateUserCreditBalance($user = array()) {
-		$query_select = "SELECT * from user_credit_balances where user_id=" . $user['Credit'] ['user_id'];
-		 
-		  
+		$query_select = "SELECT * from user_credit_balances where user_id=" . $user ['Credit'] ['user_id'];
+		
 		$get_user = $this->execSingleQueryResult ( $query_select );
-		//print_r($get_user);
-		print_r($user);
+		// print_r($get_user);
+		print_r ( $user );
 		if (empty ( $get_user )) {
 			
 			$insert_query = "INSERT INTO user_credit_balances(user_id,created,modified,sms_credits,mms_credits,
@@ -234,27 +230,26 @@ class MainModel {
 			$insert_query .= "'" . mysql_escape_string ( $user ['Credit'] ['voice_msg_credits'] ) . "'" . ',';
 			$insert_query .= "'" . mysql_escape_string ( $user ['Credit'] ['added_by'] ) . "'" . ',';
 			$insert_query .= "'" . mysql_escape_string ( $user ['Credit'] ['last_modified_by'] ) . "'" . ',';
-			$insert_query .= "'" . mysql_escape_string ( $user ['Credit'] ['expiry_date'] ) . "'" ;
+			$insert_query .= "'" . mysql_escape_string ( $user ['Credit'] ['expiry_date'] ) . "'";
 			$insert_query .= ")";
-			print_r($insert_query);
-			return $this->execInsertQuery($insert_query);
-			
+			print_r ( $insert_query );
+			return $this->execInsertQuery ( $insert_query );
 		} else {
 			$update_query = "UPDATE  user_credit_balances SET ";
 			
 			$update_query .= "modified=" . "'" . mysql_escape_string ( date ( "Y-m-d H:i:s" ) ) . "'" . ',';
-			//mysql_escape_string ( date ( "Y-m-d H:i:s" ) ) . "'" . ',';
+			// mysql_escape_string ( date ( "Y-m-d H:i:s" ) ) . "'" . ',';
 			$update_query .= "sms_credits=" . "'" . mysql_escape_string ( ($get_user ['sms_credits'] + $user ['Credit'] ['sms_credits']) ) . "',";
 			$update_query .= "mms_credits=" . "'" . mysql_escape_string ( ($get_user ['mms_credits'] + $user ['Credit'] ['mms_credits']) ) . "',";
 			$update_query .= "zonesms_credits=" . "'" . mysql_escape_string ( ($get_user ['zonesms_credits'] + $user ['Credit'] ['zonesms_credits']) ) . "',";
-			$update_query .= "voice_msg_credits = " . "'" . mysql_escape_string ( ($get_user['voice_msg_credits'] + $user['Credit']  ['voice_msg_credits']) ) . "',";
-			$update_query .= "added_by= " . "'" . mysql_escape_string (   $user ['Credit'] ['added_by'] ) . "',";
+			$update_query .= "voice_msg_credits = " . "'" . mysql_escape_string ( ($get_user ['voice_msg_credits'] + $user ['Credit'] ['voice_msg_credits']) ) . "',";
+			$update_query .= "added_by= " . "'" . mysql_escape_string ( $user ['Credit'] ['added_by'] ) . "',";
 			$update_query .= "last_modified_by=" . "'" . mysql_escape_string ( $user ['Credit'] ['last_modified_by'] ) . "',";
-			$update_query .= "expiry_date=" . "'" . mysql_escape_string ( ( $user['Credit']['expiry_date']) ) . "'";
-			//$update_query .= "expiry_date="."'". 'DATE_ADD(expiry_date,INTERVAL'. $user['Credit']['valid_for']." DAY)" ."'";
-			$update_query .= " WHERE user_id =" . $user['Credit']['user_id'];
-		 //print_r( $update_query);
-			return  $this->execQuery($update_query);
+			$update_query .= "expiry_date=" . "'" . mysql_escape_string ( ($user ['Credit'] ['expiry_date']) ) . "'";
+			// $update_query .= "expiry_date="."'". 'DATE_ADD(expiry_date,INTERVAL'. $user['Credit']['valid_for']." DAY)" ."'";
+			$update_query .= " WHERE user_id =" . $user ['Credit'] ['user_id'];
+			// print_r( $update_query);
+			return $this->execQuery ( $update_query );
 		}
 	}
 	// update Package
@@ -295,7 +290,7 @@ class MainModel {
 	public function delete($model, $id) {
 		$qry = "delete from " . $model . ' where id=' . $id;
 		if ($this->execQuery ( $qry )) {
-			 return true;
+			return true;
 		} else {
 			return false;
 		}
@@ -509,60 +504,58 @@ class MainModel {
 		// print_r($qry);
 		return $this->execQuery ( $qry );
 	}
-	
-	public function addZoneSMSArea($areas=array()){
-		//$qry = 'START TRANSACTION;';
-		//foreach ($areas['areas'] as $k){
+	public function addZoneSMSArea($areas = array()) {
+		// $qry = 'START TRANSACTION;';
+		// foreach ($areas['areas'] as $k){
 		$qry = 'INSERT INTO zone_sms_areas(name, description,created,modified) values(';
-		$qry .= "'" . mysql_escape_string ( $areas['name']) . "'" . ',';
-		$qry .= "'" . mysql_escape_string ( $areas['description']) . "'" . ',';
+		$qry .= "'" . mysql_escape_string ( $areas ['name'] ) . "'" . ',';
+		$qry .= "'" . mysql_escape_string ( $areas ['description'] ) . "'" . ',';
 		$qry .= "NOW(),";
 		$qry .= "NOW());";
 		
-		//}
+		// }
 		
-	//	$qry.= 'COMMIT;';
- 
-		return $this->execInsertQuery($qry);
+		// $qry.= 'COMMIT;';
+		
+		return $this->execInsertQuery ( $qry );
 	}
 	
-	// get  Zone areas
+	// get Zone areas
 	public function getZoneareas($filter) {
 		$qry = "Select id,  name  as name, description as description , created as created from zone_sms_areas ";
-	
+		
 		$data = $this->execGetQuery ( $qry );
 		return $data;
 	}
-	// get  Zone areas and cities 
+	// get Zone areas and cities
 	public function getZoneareasAndCities() {
-		//$qry = "Select    zone_sms_areas.name as  name, zone_sms_areas.description as description , zone_sms_areas.created as created ,zone_sms_cities.id as id, zone_sms_cities.name as cities ,GROUP_CONCAT(DISTINCT zone_sms_cities.name) from zone_sms_areas  LEft JOIN zone_sms_cities ON zone_sms_areas.id=zone_sms_cities.zone_sms_area_id GROUP BY zone_sms_cities.zone_sms_area_id ;
+		// $qry = "Select zone_sms_areas.name as name, zone_sms_areas.description as description , zone_sms_areas.created as created ,zone_sms_cities.id as id, zone_sms_cities.name as cities ,GROUP_CONCAT(DISTINCT zone_sms_cities.name) from zone_sms_areas LEft JOIN zone_sms_cities ON zone_sms_areas.id=zone_sms_cities.zone_sms_area_id GROUP BY zone_sms_cities.zone_sms_area_id ;
 		$qry = "Select    zone_sms_areas.name as  name, zone_sms_areas.description as description , zone_sms_areas.created as created ,zone_sms_cities.id as id, zone_sms_cities.name as cities  from zone_sms_areas  LEft JOIN zone_sms_cities ON zone_sms_areas.id=zone_sms_cities.zone_sms_area_id ORDER BY zone_sms_areas.name ASC ;
 		
 		";
-	
+		
 		$data = $this->execGetQuery ( $qry );
 		return $data;
 	}
 	// get zoneSMSArea
 	public function getZoneSMSArea($id) {
 		$qry = "Select * from  zone_sms_areas where id = " . $id;
-	
+		
 		$data = $this->execSingleQueryResult ( $qry );
 		return $data;
 	}
 	
-	// get  Zone areas and cities grouped
+	// get Zone areas and cities grouped
 	public function getZoneAreasAndCitiesGrouped() {
-		//$qry = "Select    zone_sms_areas.name as  name, zone_sms_areas.description as description , zone_sms_areas.created as created ,zone_sms_cities.id as id, zone_sms_cities.name as cities ,GROUP_CONCAT(DISTINCT zone_sms_cities.name) from zone_sms_areas  LEft JOIN zone_sms_cities ON zone_sms_areas.id=zone_sms_cities.zone_sms_area_id GROUP BY zone_sms_cities.zone_sms_area_id ;
-		//$qry = "Select    zone_sms_areas.id as zone_sms_area_id ,zone_sms_areas.name as  name, zone_sms_cities.id as zone_sms_cities_id,  zone_sms_cities.name as cities   from zone_sms_areas  right JOIN zone_sms_cities ON zone_sms_areas.id=zone_sms_cities.zone_sms_area_id   ORDER BY zone_sms_areas.name ASC ;
-		
+		// $qry = "Select zone_sms_areas.name as name, zone_sms_areas.description as description , zone_sms_areas.created as created ,zone_sms_cities.id as id, zone_sms_cities.name as cities ,GROUP_CONCAT(DISTINCT zone_sms_cities.name) from zone_sms_areas LEft JOIN zone_sms_cities ON zone_sms_areas.id=zone_sms_cities.zone_sms_area_id GROUP BY zone_sms_cities.zone_sms_area_id ;
+		// $qry = "Select zone_sms_areas.id as zone_sms_area_id ,zone_sms_areas.name as name, zone_sms_cities.id as zone_sms_cities_id, zone_sms_cities.name as cities from zone_sms_areas right JOIN zone_sms_cities ON zone_sms_areas.id=zone_sms_cities.zone_sms_area_id ORDER BY zone_sms_areas.name ASC ;
 		$qry = "Select zone_sms_areas.id as zone_sms_area_id ,
 				zone_sms_areas.name as  name,  GROUP_CONCAT(DISTINCT zone_sms_cities.name) as cities   
 				from zone_sms_areas left JOIN zone_sms_cities ON zone_sms_areas.id=zone_sms_cities.zone_sms_area_id  
 				 GROUP BY zone_sms_areas.name  ;
 		
 		";
-		//LEft JOIN features ON packages.id=features.package_id GROUP BY packages.title";
+		// LEft JOIN features ON packages.id=features.package_id GROUP BY packages.title";
 		$data = $this->execGetQuery ( $qry );
 		return $data;
 	}
@@ -570,91 +563,105 @@ class MainModel {
 	// update zone area
 	public function updateZoneSMSArea($package = array()) {
 		$qry = 'update zone_sms_areas set ';
-	
+		
 		$qry .= "name = '" . mysql_escape_string ( $package ['name'] ) . "'" . ',';
-	
+		
 		$qry .= " description= '" . mysql_escape_string ( $package ['description'] ) . "'" . ',';
-		 
+		
 		$qry .= "modified=NOW()";
 		
 		$qry .= " where id =" . $package ['id'];
 		return $this->execQuery ( $qry );
 	}
 	
-	//add zone cities
-	public function  addZoneSMSCities($zoneAndCities= array(),$zoneCounts){
-		 print_r($zoneAndCities);
-		//print_r($zoneCounts);
-		 //$qry = 'START TRANSACTION;';
-		 
-	 	for($i=0; $i < $zoneCounts; $i++){
-		$qry.= 'INSERT IGNORE INTO zone_sms_cities(name,zone_sms_area_id,created,modified) VALUES(';
-		$qry .= " '" . mysql_escape_string ( $zoneAndCities ['name'][$i] ) . "'" . ',';
+	// add zone cities
+	public function addZoneSMSCities($zoneAndCities = array(), $zoneCounts) {
+		print_r ( $zoneAndCities );
+		// print_r($zoneCounts);
+		// $qry = 'START TRANSACTION;';
 		
-		$qry .= " "  . mysql_escape_string($zoneAndCities['zone_sms_area_id'])  . ',';
-		 
-		$qry .= "NOW(),";
-		$qry .= "NOW());";
-		 print_r($qry);
-		$this->execQuery($qry);
-		unset($qry);
-	}
+		for($i = 0; $i < $zoneCounts; $i ++) {
+			$qry .= 'INSERT IGNORE INTO zone_sms_cities(name,zone_sms_area_id,created,modified) VALUES(';
+			$qry .= " '" . mysql_escape_string ( $zoneAndCities ['name'] [$i] ) . "'" . ',';
+			
+			$qry .= " " . mysql_escape_string ( $zoneAndCities ['zone_sms_area_id'] ) . ',';
+			
+			$qry .= "NOW(),";
+			$qry .= "NOW());";
+			print_r ( $qry );
+			$this->execQuery ( $qry );
+			unset ( $qry );
+		}
 		
-		// $qry.=  'COMMIT;';
+		// $qry.= 'COMMIT;';
 		// print_r($qry);
-	 	  //$this->execQuery($qry);
-		   return true;
+		// $this->execQuery($qry);
+		return true;
 	}
 	
 	// get zoneSMSCity
 	public function getZoneSMSAreaCity($id) {
 		$qry = "Select * from  zone_sms_cities where id = " . $id;
-	
+		
 		$data = $this->execSingleQueryResult ( $qry );
 		return $data;
 	}
 	
-	
 	// update zone city
 	public function updateZoneSMSAreaCity($package = array()) {
 		$qry = 'UPDATE zone_sms_cities SET ';
-	
+		
 		$qry .= "name='" . mysql_escape_string ( $package ['name'] ) . "'" . ',';
 		$qry .= "zone_sms_area_id = '" . mysql_escape_string ( $package ['zone_sms_area_id'] ) . "'" . ',';
 		
 		$qry .= " description= '" . mysql_escape_string ( $package ['description'] ) . "'" . ',';
-			
+		
 		$qry .= "modified=NOW()";
-	
+		
 		$qry .= " where id =" . $package ['id'];
-		print_r($qry);
+		print_r ( $qry );
 		return $this->execQuery ( $qry );
 	}
-	
-	
-	public function addUserZoneSMSRequest($areas=array()){
-		//$qry = 'START TRANSACTION;';
-		//foreach ($areas['areas'] as $k){
+	public function addUserZoneSMSRequest($areas = array()) {
+		// $qry = 'START TRANSACTION;';
+		// foreach ($areas['areas'] as $k){
 		$qry = 'Insert into user_zone_sms(`user_id`,`sender`,`message`,`cities_zones`,`delivery_started`,`delivery_end`,`created`,`modified`) values(';
-		$qry .= "'" . mysql_escape_string ( $areas['user_id']) . "'" . ',';
-		$qry .= "'" . mysql_escape_string ( $areas['sender']) . "'" . ',';
-		$qry .= "'" . mysql_escape_string ( $areas['message']) . "'" . ',';
-		$qry .= "'" . mysql_escape_string ( $areas['cities_zones']) . "'" . ',';
-		$qry .= "'" . mysql_escape_string ( $areas['delivery_started']) . "'" . ',';
-		$qry .= "'" . mysql_escape_string ( $areas['delivery_end']) . "'" . ',';
+		$qry .= "'" . mysql_escape_string ( $areas ['user_id'] ) . "'" . ',';
+		$qry .= "'" . mysql_escape_string ( $areas ['sender'] ) . "'" . ',';
+		$qry .= "'" . mysql_escape_string ( $areas ['message'] ) . "'" . ',';
+		$qry .= "'" . mysql_escape_string ( $areas ['cities_zones'] ) . "'" . ',';
+		$qry .= "'" . mysql_escape_string ( $areas ['delivery_started'] ) . "'" . ',';
+		$qry .= "'" . mysql_escape_string ( $areas ['delivery_end'] ) . "'" . ',';
 		
 		$qry .= "NOW(),";
 		$qry .= "NOW());";
-	
-		//}
-	
-		//	$qry.= 'COMMIT;';
-	
-		return $this->execInsertQuery($qry);
+		
+		// }
+		
+		// $qry.= 'COMMIT;';
+		
+		return $this->execInsertQuery ( $qry );
+	}
+	public function get_user_zone_sms_requests_count($conn) {
+		$table = 'user_zone_sms';
+		$query = 'SELECT COUNT(*) FROM ' . $table;
+		// print_r($query);
+		return $this->get_pdo_count ( $conn, $query );
+	}
+	// GEt User ZoneSMS Requests
+	public function getUsersZonesmsRequests($conn, $limit_start, $limit_end) {
+		if (($limit_end == - 10) && ($limit_start = - 10)) {
+			// $query = ('SELECT user_contacts.firstname,user_contacts.lastname, user_contacts.phone, user_contacts.gender, user_contacts.birthday FROM user_contacts INNER JOIN users ON user_contacts.user_id = users.id where user_id=' . $user_id . ' ORDER BY user_contacts.firstname ASC');
+			$query = ('SELECT  user_zone_sms.* , users.* from user_zone_sms left JOIN users ON user_zone_sms.user_id = users.id  ' . ' ORDER BY  user_zone_sms.created DESC LIMIT :start,:end');
+		} else {
+			// $query = ('SELECT user_contacts.id, user_contacts.firstname,user_contacts.lastname, user_contacts.phone, user_contacts.gender, user_contacts.birthday FROM user_contacts INNER JOIN users ON user_contacts.user_id = users.id where user_id=' . $user_id . ' ORDER BY user_contacts.firstname ASC LIMIT :start,:end');
+			$query = ('SELECT  user_zone_sms.* ,users.* from user_zone_sms left JOIN users ON user_zone_sms.user_id = users.id ' . ' ORDER BY  user_zone_sms.created DESC LIMIT :start,:end');
 		}
+		 // print_r($query);
+		return $this->get_pdo_record ( $conn, $query, $limit_start, $limit_end );
+	}
 	
-	//Private functions
-	
+	// Private functions
 	private function get_pdo_count($conn, $query) {
 		// print_r($query);
 		return $conn->query ( $query )->fetchColumn ();
@@ -685,16 +692,16 @@ class MainModel {
 		
 		global $DBNAME;
 		mysql_select_db ( $DBNAME );
-		//print_r($qry);
-		 
+		// print_r($qry);
+		
 		if (mysql_query ( $qry, $DB_CONN )) {
-		return true;
+			return true;
 		} else {
 			die ( mysql_error () );
-		return false;
+			return false;
 		}
-		  //mysql_query ( $qry, $DB_CONN ) or die ( mysql_error () );
-		 // mysql_close ();
+		// mysql_query ( $qry, $DB_CONN ) or die ( mysql_error () );
+		// mysql_close ();
 	}
 	// mysql_insert_id();
 	private function execInsertQuery($qry) {
@@ -709,7 +716,7 @@ class MainModel {
 			return 0;
 		}
 		// mysql_query ( $qry, $DB_CONN ) or die ( mysql_error () );
-		  mysql_close ();
+		mysql_close ();
 	}
 	private function execGetQuery($qry) {
 		$DB_CONN = $this->start_db_connection ();
