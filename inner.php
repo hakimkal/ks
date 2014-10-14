@@ -1,3 +1,5 @@
+<?php include('includes/app_controller.php');?>
+<?php  echo BASE_URL; ?>
 <!DOCTYPE html>
 <html class="no-js" lang="en"> 
 <head>
@@ -47,35 +49,10 @@ function calcHeight()
 
 <div id="myModal" class="reveal-modal">
 			
-			<div class="main_popup">
+			 	<div class="main_popup">
 			<div class="main_popup1">
 			<div class="main_popup1_1">
-			<h1>Login</h1>
-			</div>
-			<div class="main_popup1_1">
-			<p>Email</p>
-			</div>
-			<div class="main_popup1_1">
-			<input type="text" name="email" id="email" class="main_input">
-			</div>
-			<div class="main_popup1_1">
-			<p>Password</p>
-			</div>
-			<div class="main_popup1_1">
-			<input type="text" name="email" id="email" class="main_input_pass">
-			</div>
-			<div class="main_popup1_1_button">
-			<button type="submit" id="button" name="button" class="login_button">Login</button>
-			</div>
-			<div class="or">
-			
-			</div>
-			<div class="main_popup1_1_button1">
-			<img src="images/loginwithfacebook.png" class="facebook">
-			</div>
-			<div class="main_popup1_1_button">
-			<a href="#" class="fogot">Forgot Password</a> | <a href="#" class="fogot">Sign Up</a>
-			</div>
+			<?php include('includes/loginform.php');?>
 			</div>
 			</div>
 			
@@ -83,8 +60,7 @@ function calcHeight()
 		
 		</div>
 		
-		
-		<div id="myModal2" class="reveal-modal">
+		 	<div id="myModal2" class="reveal-modal" style="width:500px;">
 			
 			<div class="main_popup">
 			<div class="main_popup1">
@@ -92,59 +68,34 @@ function calcHeight()
 			<h1>Register</h1>
 			</div>
 			
-			<div class="main_popup1_1">
-			<p>Name</p>
-			</div>
-			<div class="main_popup1_1">
-			<input type="text" name="email" id="email" class="main_input">
-			</div>
-			<div class="main_popup1_1">
-			<p>Email</p>
-			</div>
-			<div class="main_popup1_1">
-			<input type="text" name="email" id="email" class="main_input_pass">
-			</div>
-			<div class="main_popup1_1">
-			<p>Password</p>
-			</div>
-			<div class="main_popup1_1">
-			<input type="text" name="email" id="email" class="main_input_pass">
-			</div>
+			<?php  include('includes/signupform.php');?>
 			
-			<div class="main_popup1_1">
-			<p>City</p>
-			</div>
-			<div class="main_popup1_1">
-			<select class="main_input_pass" style="width:100%; border:none;">
-			<option>City Name</option>
-			<option>City Name</option>
-			<option>City Name</option>
-			<option>City Name</option>
-			<option>City Name</option>
-			</select>
-			</div>
 			
-			<div class="main_popup1_1">
-			<p>Mobile No</p>
-			</div>
-			<div class="main_popup1_1">
-			<input type="text" name="email" id="email" class="main_input_pass">
-			</div>
-			
-			<div class="main_popup1_1_button">
-			<button type="submit" id="button" name="button" class="sign_button">Sign Up</button>
-			</div>
-			
-			<div class="main_popup1_1_button">
-			<a href="#" class="fogot">You agree to our <b>terms of use</b></a>
-			</div>
 			</div>
 			</div>
 			
 			<a class="close-reveal-modal"><img src="images/cross.png"></a>
 		
 		</div>
-
+		
+		<div id="myModal3" class="reveal-modal" style="width:500px;">
+			
+			<div class="main_popup">
+			<div class="main_popup1">
+			<div class="main_popup1_1">
+			<h1> Password Reset Link </h1>
+			
+			</div>
+			
+			<?php  include('includes/forgotpasswordform.php');?>
+			
+			
+			</div>
+			</div>
+			
+			<a class="close-reveal-modal"><img src="images/cross.png"></a>
+		
+		</div>
 <div id="main-container">
 <div id="main-nav">
 <div class="top_header">

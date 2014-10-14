@@ -277,10 +277,11 @@ $zc = $mc->getZoneAreasAndCitiesGrouped ();
 	
 	?>
       
-        <select id="ms" multiple="multiple" name="ZonesmsRequest[cities]"
-																title="Select cities where you want to send ZoneSMS">
+        <select id="ms" multiple="multiple" name="ZonesmsRequest[zone_cities][]"	title="Select cities where you want to send ZoneSMS">
         <?php foreach ($zc as $z):?>
+        
         <optgroup label="<?php echo $z['name'];?>">
+       
         <?php
 		$cities = explode ( ',', $z ['cities'] );
 		foreach ( $cities as $c ) :
