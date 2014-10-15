@@ -690,6 +690,10 @@ class MainController {
 		$users = $this->db->getUsersZonesmsRequests($conn,  $limit_start, $limit_end) ;
 		return $users;
 	}
+	// get single request
+	public function getUserZonesmsRequest($id) {
+		return $this->db->getUserZonesmsRequest($id);
+	}
 	
 	// send email method
 	private function sendEmail($email, $name, $subject, $htmlMessage, $plainMessage) {

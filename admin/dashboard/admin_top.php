@@ -103,7 +103,7 @@ $mc->isAdmin(true);
 			</ul>
 
 			<!-- Logo -->
-			<a class="navbar-brand" href="#">
+			<a class="navbar-brand" href="index.php">
 				<img src="<?php echo BASE_URL ;?>/images/logo.png"  />
 			</a>
 			<!-- /logo -->
@@ -129,7 +129,7 @@ $mc->isAdmin(true);
 						<?php include('user_notifications.php');?>
 						 
 						<li class="footer">
-							<a href="javascript:void(0);">View all notifications</a>
+							<a href="zonesms_requests.php">View all notifications</a>
 						</li>
 					</ul>
 				</li>

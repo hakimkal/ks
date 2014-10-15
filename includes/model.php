@@ -667,6 +667,16 @@ class MainModel {
 		return $this->get_pdo_record ( $conn, $query, $limit_start, $limit_end );
 	}
 	
+	// GEt User ZoneSMS Single Request
+	public function getUserZonesmsRequest($id) {
+		 
+			// $query = ('SELECT user_contacts.id, user_contacts.firstname,user_contacts.lastname, user_contacts.phone, user_contacts.gender, user_contacts.birthday FROM user_contacts INNER JOIN users ON user_contacts.user_id = users.id where user_id=' . $user_id . ' ORDER BY user_contacts.firstname ASC LIMIT :start,:end');
+			$query = ('SELECT  user_zone_sms.* ,users.* from user_zone_sms left JOIN users ON user_zone_sms.user_id = users.id  ' . ' where user_zone_sms.id='. $id);
+		 
+		// print_r($query);
+		return $this->execGetQuery($query);
+	}
+	
 	// Private functions
 	private function get_pdo_count($conn, $query) {
 		// print_r($query);

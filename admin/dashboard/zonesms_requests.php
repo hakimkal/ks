@@ -2,11 +2,7 @@
 <?php require('admin_top.php');
 ?>
  
-<?php
  
-$Users =  $mc->getUsers($_GET['category']);
-
-?>
 
 <!--=== Blue Chart ===-->
 				<div class="row">
@@ -55,7 +51,7 @@ $record=  "<tr><td>$row[2]</td><td>$row[3]</td><td>$row[11]</td><td>". $row[4]."
 	else{$record=  "<tr><td>$row[2]</td><td>$row[3]</td><td>$row[11]</td><td>". $row[4]."</td><td>". str_replace("time", "",  $row[7]) ."</td><td>". $row[9]."</td>";
 }							 		
 								 		$record.= "<td class='align-center'><span class='btn-group'>
-													<a href='#'  class='btn btn-xs bs-tooltip'><i class='icon-info' title='view detail'></i></a>
+													<a href='zonesms_request_view.php?id=".$row[0]."'  class='btn btn-xs bs-tooltip'><i class='icon-info' title='view detail'></i></a>
 												</span></td>"; 
 								 		$record.="</tr>\n";
 								 		
@@ -78,7 +74,7 @@ $record=  "<tr><td>$row[2]</td><td>$row[3]</td><td>$row[11]</td><td>". $row[4]."
 								<div class="row">
 									<div class="table-footer">
 										<div class="col-md-12">
-											 Total Requests: <?php echo ucwords(count($Users));?>
+											 Total Requests: <?php echo ucwords(count($result));?>
 										</div>
 									</div> <!-- /.table-footer -->
 								</div> <!-- /.row -->
