@@ -118,6 +118,18 @@ class MainModel {
 		return $data;
 	}
 	
+	
+	
+	// get get Price Per Unit
+	public function getPricePerUnit($filter) {
+		$qry = ('Select id, sms_credits_value as sms_credits_value, zonesms_credits_value as zonesms_credits_value, mms_credits_value as mms_credits_value, cost_per_sms as cost_per_sms , cost_per_zonesms as cost_per_zonesms,cost_per_mms as cost_per_mms, cost_per_voice as cost_per_voice, created as created from user_credit_purchases where user_id= ' . $filter . '  ORDER BY  user_credit_purchases.created DESC ');
+	
+		$data = $this->execGetQuery ( $qry );
+		//print_r($data);
+		return $data;
+	}
+	
+	
 	// get UserByEmails
 	public function getUserByEmail($filter) {
 		$qry = "Select id, firstname as firstname, lastname as lastname , email as email,mobile as mobile, token as token,created as created from users where email= '" . $filter . "'";

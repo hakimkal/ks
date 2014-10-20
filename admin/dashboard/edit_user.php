@@ -2,6 +2,9 @@
 <?php require('admin_top.php');
 
 $user= $mc->getUser($_GET['id']);
+$user_unitPrice=$mc-> getPricePerUnit($_GET['id']);
+
+//print_r ($user_unitPrice);
  
 ?>
 	
@@ -59,7 +62,7 @@ $user= $mc->getUser($_GET['id']);
 			<p>Unit Cost Per SMS ($)</p>
 			</div>
 			<div class="main_popup1_1">
-			<input type="text" name="UserCredit[Credit][cost_per_sms]"  required   class="main_input_pass">
+			<input type="text" name="UserCredit[Credit][cost_per_sms]"  value="<?php echo $user_unitPrice['cost_per_sms'];?>" required   class="main_input_pass">
 		 </div>
 			 <div class="main_popup1_1">
 			<p>Zone SMS Credit</p>
@@ -72,7 +75,7 @@ $user= $mc->getUser($_GET['id']);
 			<p>Unit Cost Per Zone SMS ($)</p>
 			</div>
 			<div class="main_popup1_1">
-			<input type="text" name="UserCredit[Credit][cost_per_zonesms]"  required   class="main_input_pass">
+			<input type="text" name="UserCredit[Credit][cost_per_zonesms]"  required  value="<?php echo $user_unitPrice['cost_per_zonesms'];?>"  class="main_input_pass">
 		 </div>
 			 <div class="main_popup1_1">
 			<p>MMS Credit</p>
@@ -85,7 +88,7 @@ $user= $mc->getUser($_GET['id']);
 			<p>Unit Cost Per MMS ($)</p>
 			</div>
 			<div class="main_popup1_1">
-			<input type="text" name="UserCredit[Credit][cost_per_mms]"  required   class="main_input_pass">
+			<input type="text" name="UserCredit[Credit][cost_per_mms]"  required   value="<?php echo $user_unitPrice['cost_per_sms'];?>" class="main_input_pass">
 		 </div>
 			  <div class="main_popup1_1">
 			<p>Voice Message Credit</p>
@@ -98,7 +101,7 @@ $user= $mc->getUser($_GET['id']);
 			<p>Unit Cost Per Voice MSG ($)</p>
 			</div>
 			<div class="main_popup1_1">
-			<input type="text" name="UserCredit[Credit][cost_per_voice]"  required   class="main_input_pass">
+			<input type="text" name="UserCredit[Credit][cost_per_voice]"  required   value="<?php echo $user_unitPrice['cost_per_voice'];?>" class="main_input_pass">
 		 </div>
 		 
 		 <div class="main_popup1_1">
