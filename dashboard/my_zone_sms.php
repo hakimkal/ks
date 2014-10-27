@@ -13,7 +13,7 @@ if(($sms_credit_balance['zonesms_credits'] <= 0) || ($sms_credit_balance <= 0)){
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-<title>KootSMS Zone SMS</title>
+<title>My KootSMS Zone SMS</title>
 
 <!-- Bootstrap -->
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"
@@ -123,108 +123,12 @@ if(($sms_credit_balance['zonesms_credits'] <= 0) || ($sms_credit_balance <= 0)){
 			<br>
 			<br>
 			<br>
-<?php if($mc->getUserZoneSMSStatus() != false):?>
-
-				<!--=== Page Content ===-->
-			<!--=== Inline Tabs ===-->
-			<div class="row">
-				<div class="col-md-12">
-					<!-- Tabs-->
-					<div class="tabbable tabbable-custom tabbable-full-width">
-						<ul class="nav nav-tabs">
-
-							<li><a href="#tab_edit_account" data-toggle="tab">Send SMS </a></li>
-						</ul>
-						<div class="tab-content row">
-							<!--=== Overview ===-->
-
-							<!-- /Overview -->
-
-							<!--=== Edit Account ===-->
-							<div class="tab-pane active" id="tab_edit_account">
-								<form class="form-horizontal"
-									action="<?php echo BASE_URL;?>/includes/app_controller.php"
-									enctype="multipart/form-data" method="post"">
-									<div class="col-md-12">
-										<div class="widget">
-											<div class="widget-header">
-
-												<h4>Message Pad</h4>
-											</div>
-											<div class="widget-content">
-												<div class="row">
-													<div class="col-md-6">
-														<div class="form-group">
-															<label class="col-md-4 control-label">Sender:</label>
-															<div class="col-md-8">
-																<input type="text" name="Bulksms[sender]"
-																	class="form-control">
-															</div>
-														</div>
-
-
-
-														<div class="form-group">
-															<label class="col-md-4 control-label">File (Please
-																separate mobile numbers with commas):</label> <input
-																type="hidden" name="Bulksms[user_id]"
-																value="<?php echo $_SESSION['User']['id'];?>" />
-															<div class="col-md-8">
-																<input type="file" name="Bulksms[file]"
-																	class="form-control" required="required">
-															</div>
-														</div>
-													</div>
-
-
-													<div class="col-md-6">
-														<div class="form-group">
-															<label class="col-md-4 control-label">Message:</label>
-															<div class="col-md-8">
-																<textarea rows="6" name="Bulksms[message]"
-																	class="form-control" cols="60"></textarea>
-															</div>
-														</div>
-
-
-													</div>
-													<!-- /.row -->
-												</div>
-												<!-- /.widget-content -->
-											</div>
-											<!-- /.widget -->
-										</div>
-										<!-- /.col-md-12 -->
-
-										<div class="col-md-12 form-vertical no-margin">
-
-
-											<div class="form-actions">
-												<input type="submit" value="Send Message"
-													class="btn btn-primary pull-right">
-											</div>
-										</div>
-										<!-- /.col-md-12 -->
-								
-								</form>
-							</div>
-							<!-- /Edit Account -->
-						</div>
-						<!-- /.tab-content -->
-					</div>
-					<!--END TABS-->
-				</div>
-			</div>
-			<!-- /.row -->
-				
-				
-				
-				<?php else:?>
+ 
+				 
 				<br />
 			<br />
 			<br />
-			<br /> <img alt="Map " src="../images/koweit45.gif" width="400"
-				height="200"> REQUEST Zone SMS APPROVAL
+			 
 
 			<div class="row">
 				<div class="col-md-12">
@@ -253,85 +157,93 @@ if(($sms_credit_balance['zonesms_credits'] <= 0) || ($sms_credit_balance <= 0)){
 
 							<!--=== Edit Account ===-->
 							<div class="tab-pane active" id="tab_edit_account">
-								<form class="form-horizontal"
-									action="<?php echo BASE_URL;?>/includes/app_controller.php"
-									enctype="multipart/form-data" method="post" class="pure-form">
-									<div class="col-md-12">
-										<div class="widget">
-											<div class="widget-header">
+								 		<!-- /.row -->
+								 		
+								 		
+								 		
+								 		<!--=== Blue Chart ===-->
+				<div class="row">
+					<div class="col-md-12">
+						<div class="widget box">
+							<div class="widget-header">
+								<h4><i class="icon-reorder"></i>Zonesms Requests </h4>
+								<div class="toolbar no-padding">
+									<div class="btn-group">
+										<span class="btn btn-xs widget-collapse"><i class="icon-angle-down"></i></span>
+									</div>
+								</div>
+							</div>
+							<div class="widget-content no-padding">
+								<table class="table table-striped table-checkable table-hover ">
+									<thead>
+										<tr>
+											 
+											<th class="hidden-xs"> Sender</th>
+											<th>Message</th>
+											 
+											<th>Coverage</th>
+											<th class="align-center">Created</th>
+                                           <th class="align-center">Status</th>
+                                            <th class="align-center">Action</th>
+										</tr>
+									</thead>
+									 
+									<tbody>
+										  <?php 
+						 	 require('../includes/paginator.class.php');
+								 try {
+								 	
+									$conn = $mc->db->get_pdo_connection();
+									$num_rows = $mc->db->get_user_zone_sms_requests_count($conn);
+									//print_r($num_rows);
+								 	$pages = new Paginator($num_rows,9,array(15,3,6,9,12,25,50,100,250,'All'));
+								 	 
+										$result = $mc->getUsersZonesmsRequests($conn,  $pages->limit_start, $pages->limit_end,$_SESSION['User']['id'],"approved");
+									// print_r($result);
+								 	 foreach($result as $row) {
+if($row[9] == 'pending review'){ 		
+$record=  "<tr><td>$row[2]</td><td>$row[3]</td><td>$row[11]</td><td>". $row[4]."</td><td>". str_replace("time", "",  $row[7]) ."</td><td style='color:red;'>". $row[9]."</td>";
+								 		
+	}
+	else{$record=  "<tr><td>$row[2]</td><td>$row[3]</td> <td>". $row[4]."</td><td>". str_replace("time", "",  $row[7]) ."</td><td>". $row[9]."</td>";
+}							 		
+								 		$record.= "<td class='align-center'><span class='btn-group'>
+													<a href='edit_my_zone_sms.php?id=".$row[0]."'  class='btn btn-xs bs-tooltip'><i class='icon-edit' title='edit zonesms'></i></a>
+												</span></td>"; 
+								 		$record.="</tr>\n";
+								 		
+								 		echo $record;
+								 	}
+								  
+								 	
+								 	echo "<p class=\"paginate\">Page: $pages->current_page of $pages->num_pages</p>\n";
+								 //	echo "<p class=\"paginate\">SELECT * FROM table LIMIT $pages->limit_start,$pages->limit_end (retrieve records $pages->limit_start-".($pages->limit_start+$pages->limit_end)." from table - $pages->total_items item total / $pages->items_per_page items per page)";
+								 } catch(PDOException $e) {
+								 	//echo 'ERROR: ' . $e->getMessage();
+								 }
+								 ?>
+								 
+								 
+										 
+									 
+									</tbody>
+								</table>
+								<div class="row">
+									<div class="table-footer">
+										<div class="col-md-12">
+											 Total Requests: <?php echo ucwords(count($result));?>
+										</div>
+									</div> <!-- /.table-footer -->
+								</div> <!-- /.row -->
+							</div>
+							<div class="divider"></div>
+							
+						</div>
+					</div> <!-- /.col-md-12 -->
+				</div> <!-- /.row -->
+				<!-- /Blue Chart -->
 
-												<h4>Select Zone and City You wish to Send ZoneSMS</h4>
-											</div>
-											<div class="widget-content">
-												<div class="row">
-													<div class="col-md-6">
-
-
-														<div class="form-group">
-															<label>Select City(ies) </label>
-        
-        <?php
-	
-$zc = $mc->getZoneAreasAndCitiesGrouped ();
-	// print_r($zc);
-	
-	?>
-      
-        <select id="ms" multiple="multiple" name="ZonesmsRequest[zone_cities][]"	title="Select cities where you want to send ZoneSMS">
-        <?php foreach ($zc as $z):?>
-        
-        <!-- <optgroup label="<?php echo $z['name'];?>">-->
-         <option value="<?php echo $z['name'];?>" style="font-weight:bold;"><?php echo $z['name'];?></option>
-        <?php
-		$cities = explode ( ',', $z ['cities'] );
-		foreach ( $cities as $c ) :
-			?>
-        <option value="<?php echo $c;?>"><?php echo $c;?></option>
-        <?php
-		endforeach
-		;
-		
-		?>
-        
-        
-       <!--  </optgroup>-->
-        <?php endforeach;?>
-        
-        
-        </select>
-
-
-														</div>
-														<div class="form-group">
-															<label >Sender:</label>
-															 
-																<input type="text" name="ZonesmsRequest[sender]"
-																	class="form-control">
-															 
-														</div>
-
-
-
-
-
-														 
-															<div class="form-group">
-																<label  >Message:</label>
-																 
-																	<textarea rows="6" name="ZonesmsRequest[message]"
-																		class="form-control" cols="60"></textarea>
-																 
-															 
-
-														</div>
-														
-														<div class="form-actions">
-													<input type="submit" value="Send Request"
-														class="btn btn-primary pull-right">
-												</div>
-												
-												<input type="hidden" name="ZonesmsRequest[user_id]" value="<?php echo $_SESSION['User']['id'];?>"/>
-														<!-- /.row -->
+								 		
 													</div>
 													<!-- /.widget-content -->
 												</div>
@@ -341,7 +253,7 @@ $zc = $mc->getZoneAreasAndCitiesGrouped ();
 
 											 
 								
-								</form>
+								 
 							</div>
 							<!-- /Edit Account -->
 						</div>
@@ -352,7 +264,7 @@ $zc = $mc->getZoneAreasAndCitiesGrouped ();
 			</div>
 			<!-- /.row -->
 				
-				<?php endif;?>
+ 
 				
 			</div>
 		<!-- /Page Content -->

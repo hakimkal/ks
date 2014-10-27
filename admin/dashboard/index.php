@@ -162,6 +162,23 @@ require ('admin_top.php');
 											</div> <!-- /.col1 -->
 
 									</a></li>
+									
+									
+									<li class="hoverable"><a href="zonesms_requests.php">
+											<div class="col1">
+												<div class="content">
+													<div class="content-col1">
+														<div class="label label-info">
+															<i class="icon-plus"></i>
+														</div>
+													</div>
+													<div class="content-col2">
+														<div class="desc">Manage Zonesms Requests</div>
+													</div>
+												</div>
+											</div> <!-- /.col1 -->
+
+									</a></li>
 								</ul>
 								<!-- /.feeds -->
 							</div>

@@ -1,6 +1,7 @@
 <?php $pageName = 'KootSMS Customer  Dashboard';?>
 <?php require(dirname(dirname(__FILE__)).'/includes/app_controller.php');
-$mc->checkLogin(true);
+$mc->checkLogin(true); 
+$mc->isCustomer(true);
 //$_SESSION['success'] = "Welcome";
 
 ?>
@@ -290,10 +291,50 @@ $mc->checkLogin(true);
                        
                         <?php   echo strftime("%d-%m-%Y %H:%M:%S", strtotime($last_campaign[0]['created']));?>
                         </h2></div>
+                        
+                        
                         <!--<div class="last_login1_head">dsfdsfdsf</div>-->
                         </div>
                         
+                        
+                        
+                        
                         </div>
+                        
+                        
+                        <?php //user approved zonesms 
+                        
+                        $check_approval = $mc->checkUserZonesmsApproveStatus($_SESSION['User']['id']);
+                        if(count($check_approval)): ?>
+                        
+                        <div class="last_login1">
+                        
+                        <div class="last_login1_1">
+                        <div class="last_login1_head"><h1> <?php echo count($check_approval);?> Approved Zonesms</h1></div>
+                        <!--<div class="last_login1_head">dsfdsfdsf</div>-->
+                        </div>
+                        
+                        <div class="last_login1_2">
+                        
+                        <?php    $last_campaign = $mc->db->get_user_last_campaign($conn, $_SESSION['User']['id']);
+                        
+                        
+                        ?>
+                        <div class="last_login1_head"><h2>
+                        
+                       
+                      <a href="my_zone_sms.php" class="btn btn-success">Launch</a>
+                        </h2></div>
+                        
+                        
+                      
+                        </div>
+                        
+                        <?php endif;?>
+                        
+                        
+                        </div>
+                        
                         
                         </div>
 							 <!-- /.widget-content -->

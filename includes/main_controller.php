@@ -383,8 +383,12 @@ class MainController {
 	public function userLounge() {
 		if ($_SESSION ['User'] ['user_type'] == 'customer') {
 			$this->redirect ( 'dashboard/index.php' );
-		} else {
-			$this->redirect ( 'admin/dashboard/index.php' );
+		}
+elseif ($_SESSION ['User'] ['user_type'] != 'customer') {
+	$this->redirect ( 'admin/dashboard/index.php' );
+}
+		 else {
+			$this->redirect ( 'logout.php' );
 		}
 	}
 	// signout and destroy session
@@ -411,7 +415,9 @@ class MainController {
 				return true;
 			} else {
 				
-				$this->redirect ( 'includes/logout.php' );
+				$_SESSION['error'] = "Restricted section:: Customers Only";
+				//$this->redirect ( 'includes/logout.php' );
+				$this->userLounge();
 				return false;
 			}
 		}
@@ -647,6 +653,179 @@ class MainController {
 		} else {
 			return false;
 		}
+	}
+	
+	// request ZoneSMS
+	public function requestZonesms($requesting_user = array()) {
+		 
+		//	print_r($email);
+		$user = $this->db->getUser($requesting_user['user_id']);
+			$requesting_user['cities_zones'] = implode(',', $requesting_user['zone_cities']);
+		if(($user) == null){
+				
+			$_SESSION['error'] = "Sorry you do not  appear to be currently logged in, Please login and try again. ";
+			$this->redirect("index.php");
+			exit();
+		}
+		$user = $user[0];
+		 
+		 if($this->db->addUserZoneSMSRequest($requesting_user))
+		$name = $user ['firstname'] . ' ' . $user ['lastname'];
+		 $email = $user['email'];
+		$subject = "kootSMS ZoneSMS Request Order" ;
+	
+		$htmlMessage = "<b> Hello " . $name . ",</b><br/>";
+		$htmlMessage .= "<b> Time Stamp: " . date ( 'd-m-Y H:i:s' ) . "</b><br/>";
+	
+		$htmlMessage .= "Your request  for ZoneSMS has been received and will be treated swiftly. ". "<br/><br/>";
+		$htmlMessage .= "Here is your oder details:". "<br/><br/>";
+		$htmlMessage .= "Sender ID:".$requesting_user['sender']. "<br/><br/>";
+		$htmlMessage .= "Message:".$requesting_user['message']. "<br/><br/>";
+		$htmlMessage .= "Cities:".$requesting_user['cities_zones']. "<br/><br/>";
+		
+	
+	 
+		$plainlMessage = "<b> Hello " . $name . ",";
+		$plainMessage .= "<b> Time Stamp: " . date ( 'd-m-Y H:i:s' ) ;
+	
+		$plainMessage .= "Your request  for ZoneSMS has been received and will be treated swiftly. ";
+		$plainMessage .= "Here is your oder details:" ;
+		$plainMessage .= "Sender ID:".$requesting_user['sender'] ;
+		$plainMessage .= "Message:".$requesting_user['message'] ;
+		$plainMessage .= "Cities:".$requesting_user['cities_zones'];
+		
+	
+	
+		if ($this->sendEmailToSupport ( $email, $name, $subject, $htmlMessage, $plainMessage )) {
+			$_SESSION ['success'] = "Your Zonesms request have been received and will be processed shortly.";
+		}
+	
+		else {
+	
+			// $_SESSION['error'] = "Your signup was successful but we are unable to send you an email.";
+		}
+		$this->redirect("dashboard/index.php");
+	}
+	
+	// get all zonesms requests 
+	public function getUsersZonesmsRequests($conn,  $limit_start, $limit_end,$user_id=null,$status=null) {
+		$users = $this->db->getUsersZonesmsRequests($conn,  $limit_start, $limit_end,$user_id,$status) ;
+		return $users;
+	}
+	// get single zonesms request
+	public function getUserZonesmsRequest($id) {
+		return $this->db->getUserZonesmsRequest($id);
+	}
+	
+	// approve single zonesms request and send email
+	public function approveZonesmsRequest($id) {
+		$getReq = $this->db->getUserZonesmsRequest($id);
+		if($getReq && $getReq['id'] ){
+			
+		$requesting_user = $getReq;
+		$approvedMessage = $this->db->approveZonesmsRequest($id);
+		$user = $this->db->getUser($getReq['user_id']);
+		$user = $user[0];
+		$name = $user ['firstname'] . ' ' . $user ['lastname'];
+		$subject = "kootSMS ZoneSMS Order Approval" ;
+	
+		$htmlMessage = "<b> Hello " . $name . ",</b><br/>";
+		$htmlMessage .= "<b> Time Stamp: " . date ( 'd-m-Y H:i:s' ) . "</b><br/>";
+	
+		$htmlMessage .= "Your request  for ZoneSMS has been approved, please login to your account and launch your zoneSMS. ". "<br/><br/>";
+		$htmlMessage .= "Here is your oder details:". "<br/><br/>";
+		$htmlMessage .= "Sender ID:".$requesting_user['sender']. "<br/><br/>";
+		$htmlMessage .= "Message:".$requesting_user['message']. "<br/><br/>";
+		$htmlMessage .= "Cities:".$requesting_user['cities_zones']. "<br/><br/>";
+		
+	
+	 
+		$plainlMessage = "<b> Hello " . $name . ",";
+		$plainMessage .= "<b> Time Stamp: " . date ( 'd-m-Y H:i:s' ) ;
+	
+		$plainMessage .= "Your request  for ZoneSMS has been approved, please login to your account and launch your zoneSMS.";
+		$plainMessage .= "Here is your oder details:" ;
+		$plainMessage .= "Sender ID:".$requesting_user['sender'] ;
+		$plainMessage .= "Message:".$requesting_user['message'] ;
+		$plainMessage .= "Cities:".$requesting_user['cities_zones'];
+		if ($this->sendEmail( $user['email'], $name, $subject, $htmlMessage, $plainMessage )) {
+			$_SESSION ['success'] = "Zonesms request successfully approved.";
+		}
+		
+		else {
+		
+			// $_SESSION['error'] = "Your signup was successful but we are unable to send you an email.";
+		}
+		
+	}
+	else{
+	$_SESSION['error'] = "Invalid request.";	
+	}
+	
+	$this->redirect("admin/dashboard/zonesms_requests.php");
+	}
+	
+	
+	
+	// reject single zonesms request and send email
+	public function rejectZonesmsRequest($id) {
+		$getReq = $this->db->getUserZonesmsRequest($id);
+		if($getReq && $getReq['id'] ){
+				
+			$requesting_user = $getReq;
+			$approvedMessage = $this->db->rejectZonesmsRequest($id);
+			$user = $this->db->getUser($getReq['user_id']);
+			$user = $user[0];
+			$name = $user ['firstname'] . ' ' . $user ['lastname'];
+			$subject = "kootSMS ZoneSMS Order Rejected" ;
+	
+			$htmlMessage = "<b> Hello " . $name . ",</b><br/>";
+			$htmlMessage .= "<b> Time Stamp: " . date ( 'd-m-Y H:i:s' ) . "</b><br/>";
+	
+			$htmlMessage .= "Your request  for ZoneSMS was rejected, please login to your account for details. ". "<br/><br/>";
+			$htmlMessage .= "Here is your oder details:". "<br/><br/>";
+			$htmlMessage .= "Sender ID:".$requesting_user['sender']. "<br/><br/>";
+			$htmlMessage .= "Message:".$requesting_user['message']. "<br/><br/>";
+			$htmlMessage .= "Cities:".$requesting_user['cities_zones']. "<br/><br/>";
+	
+	
+	
+			$plainlMessage = "<b> Hello " . $name . ",";
+			$plainMessage .= "<b> Time Stamp: " . date ( 'd-m-Y H:i:s' ) ;
+	
+			$plainMessage .= "Your request  for ZoneSMS was rejected, please login to your account for details. ";
+			$plainMessage .= "Here is your oder details:" ;
+			$plainMessage .= "Sender ID:".$requesting_user['sender'] ;
+			$plainMessage .= "Message:".$requesting_user['message'] ;
+			$plainMessage .= "Cities:".$requesting_user['cities_zones'];
+			if ($this->sendEmail( $user['email'], $name, $subject, $htmlMessage, $plainMessage )) {
+				$_SESSION ['success'] = "Zonesms request successfully rejected.";
+			}
+	
+			else {
+	
+				// $_SESSION['error'] = "Your signup was successful but we are unable to send you an email.";
+			}
+	
+		}
+		else{
+			$_SESSION['error'] = "Invalid request.";
+		}
+	
+		$this->redirect("admin/dashboard/zonesms_requests.php");
+	}
+	//Check if User has Zonesms approved
+	public function checkUserZonesmsApproveStatus($user_id){
+		
+		$checkApproval = $this->db->checkUserZonesmsApproval($user_id);
+		if(count($checkApproval) >0){
+		return $checkApproval;}
+		
+		else{
+			return false;
+		}
+		
+		
 	}
 	// send email method
 	private function sendEmail($email, $name, $subject, $htmlMessage, $plainMessage) {
