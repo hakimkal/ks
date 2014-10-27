@@ -1,11 +1,14 @@
-<?php $pageName = 'Zonesms Detail';?>
+<?php $pageName = 'Zonesms Approval';?>
 <?php require('admin_top.php');?>
-<?php $Package = $mc->getUserZonesmsRequest($_GET['id']);?>
+<?php 
+//$Package = $mc->getUserZonesmsRequest($_GET['id']);
 
-
-
-<?php   //print_r($Package);
+$mc->approveZonesmsRequest($_GET['id']);
 ?>
+
+
+
+<?php  //print_r($Package);?>
 <div class="row">
 
 	<div class="col-md-8">
@@ -33,7 +36,7 @@
                     <span class="icon-cog icon-white"></span><span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="zonesms_approve.php?id=<?php echo $Package['id'];?>"><span class="icon-wrench"></span> Approve Zonesms</a></li>
+                    <li><a href="#"><span class="icon-wrench"></span> Approve Zonesms</a></li>
                     <li><a href="#"><span class="icon-trash"></span> Reject</a></li>
                 </ul>
             </div>

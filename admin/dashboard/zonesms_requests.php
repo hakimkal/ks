@@ -17,7 +17,7 @@
 								</div>
 							</div>
 							<div class="widget-content no-padding">
-								<table class="table table-striped table-checkable table-hover">
+								<table class="table table-striped table-checkable table-hover ">
 									<thead>
 										<tr>
 											 

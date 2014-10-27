@@ -12,7 +12,7 @@
 
 <div class="social_new">
 <div class="social_new1"><a href="#" class="twiter"></a></div>
-<div class="social_new1"><a href="#" class="google"></a></div>
+<div class="social_new1"><a href="#" class="instagram"></a></div>
 <div class="social_new1"><a href="#" class="facebook"></a></div>
 </div>
 
@@ -26,8 +26,8 @@
 </div>
 </div>
 </div>
-	<div class="row">
-			<div class="twelve columns">
+	<div class="row" style="height:150px;">
+			<div class="twelve columns" style="margin-top:10px;">
 			<div id="logo" class="left animated fadeInDown">
 				<img src="images/logo1.png"/>
 			</div>
