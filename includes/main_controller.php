@@ -453,6 +453,21 @@ elseif ($_SESSION ['User'] ['user_type'] != 'customer') {
 			$this->redirect ( 'admin/dashboard/index.php' );
 		}
 	}
+	
+	// get price per unit
+	
+	public function getPricePerUnit($price_perunit) {
+		$user_unitPrice = $this->db->getPricePerUnit ( $price_perunit );
+		if (! empty ( $price_perunit )) {
+			return $user_unitPrice [0];
+		} else {
+			$_SESSION ['error'] = "Invalid User";
+			$this->redirect ( 'admin/dashboard/index.php' );
+		}
+	}
+	
+	
+	
 	// add Package
 	public function addPackage($package = array(), $uploadedFile = array()) {
 		$target_path = UPLOAD_DIR;
