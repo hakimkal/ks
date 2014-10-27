@@ -2,6 +2,7 @@
 <?php  echo BASE_URL; ?>
 <?php
 ini_set ( 'display_errors' , 'On' );
+
 error_reporting(1);
 ?>
 <!DOCTYPE html>
