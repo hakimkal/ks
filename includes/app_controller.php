@@ -1,5 +1,9 @@
 <?php
+<<<<<<< HEAD
 ini_set ( 'display_errors', 'Off' );
+=======
+ ini_set ( 'display_errors', 'Off' );
+>>>>>>> 574b88e620635f82c4f0c4b3e3b6f9bf8f396e74
 // error_reporting (0);
 ?>
 <?php
@@ -76,6 +80,14 @@ if ($_POST ['Package'] && ! $_POST ['_method']) {
 	// print_r($_FILES);
 	$mc->addPackage ( $_POST ['Package'], $_FILES );
 }
+
+
+
+// Update Users edit
+if (($_POST ['_method'] == 'put') && ($_POST ['my_profile'])) {
+	$mc->updateUsers ( $_POST ['my_profile'] );
+}
+
 
 // check package edit
 if (($_POST ['_method'] == 'put') && ($_POST ['Package'])) {
