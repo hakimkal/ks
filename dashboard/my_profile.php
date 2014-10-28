@@ -264,6 +264,7 @@ s
 																<label class="control-label">Remarks:</label>
 																<textarea name="Tetimonial[remark]" class="form-control" cols="3" required="" rows="5" placeholder="Remark..."></textarea>
 															</div>
+															<br>
 														</div>
 													</div> <!-- /.row -->
 												</div> <!-- /.widget-content -->
