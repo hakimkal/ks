@@ -539,6 +539,37 @@ class MainModel {
 		// print_r($qry);
 		return $this->execQuery ( $qry );
 	}
+	
+	
+	// add Banner
+	public function addBanner($singleSmS = array()) {
+		$qry = 'INSERT INTO banners(`title`,`details`,`image_link`,`image_type`,`created`) VALUES(';
+		$qry .= "'" . mysql_escape_string ( $singleSmS ['title'] ) . "'" . ',';
+		$qry .= "'" . mysql_escape_string ( $singleSmS ['details'] ) . "'" . ',';
+		$qry .= "'" . mysql_escape_string ( $singleSmS ['image_link'] ) . "'" . ',';
+		$qry .= "'" . mysql_escape_string ( $singleSmS ['image_type'] ) . "'" . ',';
+	
+		
+	
+		$qry .= "NOW()";
+		$qry .= ')';
+		// print_r($qry);
+		return $this->execQuery ( $qry );
+	}
+	
+	// add FAQ
+	public function addFaq($singleSmS = array()) {
+		$qry = 'INSERT INTO faqs(`title`,`details`,`created`) VALUES(';
+		$qry .= "'" . mysql_escape_string ( $singleSmS ['title'] ) . "'" . ',';
+		$qry .= "'" . mysql_escape_string ( $singleSmS ['details'] ) . "'" . ',';
+		 
+	
+	
+		$qry .= "NOW()";
+		$qry .= ')';
+		// print_r($qry);
+		return $this->execQuery ( $qry );
+	}
 	public function addZoneSMSArea($areas = array()) {
 		// $qry = 'START TRANSACTION;';
 		// foreach ($areas['areas'] as $k){

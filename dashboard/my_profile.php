@@ -196,7 +196,7 @@ $mc->isCustomer(true);
 						<div class="tabbable tabbable-custom tabbable-full-width">
 							<ul class="nav nav-tabs">
 								<li class="active"><a href="#tab_overview" data-toggle="tab">Overview</a></li>
-								<li><a href="#tab_edit_account" data-toggle="tab">Edit Account</a></li>
+								<li><a href="#tab_edit_account" data-toggle="tab">Edt Account</a></li>
 							</ul>
 							
 
@@ -270,7 +270,7 @@ s
 											</div> <!-- /.widget -->
 
 											<div class="form-actions">
-												<button type="submit" id="button" name="button" class="sign_button">Update profile</button>
+												<button type="submit" id="button" name="button" class="sign_button">Update My profile</button>
 											</div>
 										</div> <!-- /.col-md-12 -->
 									</form>
