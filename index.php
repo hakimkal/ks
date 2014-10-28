@@ -1,5 +1,5 @@
 <?php include('includes/app_controller.php');?>
-<?php  echo BASE_URL; ?>
+<?php  //echo BASE_URL; ?>
 <?php
 ini_set ( 'display_errors' , 'On' );
 
@@ -99,23 +99,9 @@ error_reporting(1);
 
 			<div id="home-slider" class="flexslider">
 				<ul class="slides">
-					<li>
-						<div class="six columns animated fadeInUpBig slide-left hide-for-small">
-							<img alt="front" src="images/wireframes/front-pad.png" />
-						</div>
-						
-						<div class="six columns animated fadeInRightBig slide-right">
-							<h1 class="text-right">Lorem Ipsum</h1>
-							<div class="hr hide-for-small"></div>
-							<p class="right text-right  hide-for-small">
-								Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
-							</p>
-							
-							
-						</div>
-					</li>
 					
 					
+					<?php include("pull_banners.php");?>
 					
 				
 				</ul>
@@ -142,87 +128,9 @@ error_reporting(1);
 	
 	<div class="row inner-section">
 	
-		<div class="four columns fast-anim flyIn">
 	
-			<div class="question-holder">
-				<div class="question">
-					<i class="entypo circled-help text-white">&nbsp;</i><span class="text-white">How can I make payment?</span><i class="entypo chevron-thin-down text-white show-question"></i>
-				</div>
-				<div class="answer animated">
-					<p>
-						At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. 
-					</p>
-				</div>	
-			</div>
-			
-			<div class="question-holder">
-				<div class="question">
-					<i class="entypo circled-help text-white">&nbsp;</i><span class="text-white">Is payment recurring?</span><i class="entypo chevron-thin-down text-white show-question"></i>
-				</div>
-				<div class="answer animated">
-					<p>
-						At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. 
-					</p>
-				</div>	
-			</div>
-
-		
-		</div>
-		
-		<div class="four columns flyIn">
-	
-			<div class="question-holder">
-				<div class="question">
-					<i class="entypo circled-help text-white">&nbsp;</i><span class="text-white">Can I use Android?</span><i class="entypo chevron-thin-down text-white show-question"></i>
-				</div>
-				<div class="answer animated">
-					<p>
-						At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. 
-					</p>
-				</div>	
-			</div>
-			
-			<div class="question-holder">
-				<div class="question">
-					<i class="entypo circled-help text-white">&nbsp;</i><span class="text-white">How secure is my data?</span><i class="entypo chevron-thin-down text-white show-question"></i>
-				</div>
-				<div class="answer animated">
-					<p>
-						At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. 
-					</p>
-				</div>	
-			</div>
-
-		
-		</div>
-		
-		<div class="four columns slow-anim flyIn">
-	
-			<div class="question-holder">
-				<div class="question">
-					<i class="entypo circled-help text-white">&nbsp;</i><span class="text-white">Is there a trial period?</span><i class="entypo chevron-thin-down text-white show-question"></i>
-				</div>
-				<div class="answer animated">
-					<p>
-						At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. 
-					</p>
-				</div>	
-			</div>
-			
-			<div class="question-holder">
-				<div class="question">
-					<i class="entypo circled-help text-white">&nbsp;</i><span class="text-white">Will you marry me?</span><i class="entypo chevron-thin-down text-white show-question"></i>
-				</div>
-				<div class="answer animated">
-					<p>
-						At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. 
-					</p>
-				</div>	
-			</div>
-
-		
-		</div>
-		
+			<?php include("pull_faqs.php");?>
+		 
 	
 	</div>
 

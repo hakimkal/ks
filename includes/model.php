@@ -714,6 +714,36 @@ class MainModel {
 		   ///print_r($query);
 		return $this->get_pdo_record ( $conn, $query, $limit_start, $limit_end );
 	}
+	// GEt Banners
+	public function getBanners($conn, $limit_start, $limit_end) {
+		if (($limit_end == - 10) && ($limit_start == - 10)) {
+			// $query = ('SELECT user_contacts.firstname,user_contacts.lastname, user_contacts.phone, user_contacts.gender, user_contacts.birthday FROM user_contacts INNER JOIN users ON user_contacts.user_id = users.id where user_id=' . $user_id . ' ORDER BY user_contacts.firstname ASC');
+			$query = ('SELECT  title, details, image_link, image_type from banners  ORDER BY  title DESC LIMIT :start,:end');
+		}  
+		elseif  (($limit_end != - 10) && ($limit_start != - 10)) {
+			$query = ('SELECT title, details, image_link, image_type  from banners ORDER BY title DESC LIMIT :start,:end');
+				
+		}
+		 //print_r($query);
+		return $this->get_pdo_record ( $conn, $query, $limit_start, $limit_end );
+	}
+	
+	//Get FAQs
+	
+	
+	public function getFAQs($conn, $limit_start, $limit_end) {
+		if (($limit_end == - 10) && ($limit_start == - 10) && (!$user_id && !$status)) {
+			// $query = ('SELECT user_contacts.firstname,user_contacts.lastname, user_contacts.phone, user_contacts.gender, user_contacts.birthday FROM user_contacts INNER JOIN users ON user_contacts.user_id = users.id where user_id=' . $user_id . ' ORDER BY user_contacts.firstname ASC');
+			$query = ('SELECT  title , detail  from faqs ORDER BY  title DESC LIMIT :start,:end');
+		}  
+		elseif (($limit_end != - 10) && ($limit_start != - 10) ) {
+			$query = ('SELECT  title, details from faqs ORDER BY title DESC LIMIT :start,:end');
+	
+		}
+		// print_r($query);
+		return $this->get_pdo_record ( $conn, $query, $limit_start, $limit_end );
+	}
+	
 	
 	// GEt User ZoneSMS Single Request
 	public function getUserZonesmsRequest($id) {

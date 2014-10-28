@@ -741,6 +741,18 @@ elseif ($_SESSION ['User'] ['user_type'] != 'customer') {
 		$users = $this->db->getUsersZonesmsRequests($conn,  $limit_start, $limit_end,$user_id,$status) ;
 		return $users;
 	}
+	
+	
+	// get all banners
+	public function getBanners($conn,  $limit_start, $limit_end) {
+		$users = $this->db->getBanners($conn,  $limit_start, $limit_end) ;
+		return $users;
+	}
+	// get all FAQ
+	public function getFAQs($conn,  $limit_start, $limit_end) {
+		$users = $this->db->getFAQs($conn,  $limit_start, $limit_end) ;
+		return $users;
+	}
 	// get single zonesms request
 	public function getUserZonesmsRequest($id) {
 		return $this->db->getUserZonesmsRequest($id);
