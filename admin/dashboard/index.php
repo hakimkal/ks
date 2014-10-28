@@ -179,6 +179,40 @@ require ('admin_top.php');
 											</div> <!-- /.col1 -->
 
 									</a></li>
+									
+									
+									<li class="hoverable"><a href="add_banner.php">
+											<div class="col1">
+												<div class="content">
+													<div class="content-col1">
+														<div class="label label-info">
+															<i class="icon-plus"></i>
+														</div>
+													</div>
+													<div class="content-col2">
+														<div class="desc">Add Banner</div>
+													</div>
+												</div>
+											</div> <!-- /.col1 -->
+
+									</a></li>
+									
+									
+									<li class="hoverable"><a href="add_faq.php">
+											<div class="col1">
+												<div class="content">
+													<div class="content-col1">
+														<div class="label label-info">
+															<i class="icon-plus"></i>
+														</div>
+													</div>
+													<div class="content-col2">
+														<div class="desc">Add FaQ Item</div>
+													</div>
+												</div>
+											</div> <!-- /.col1 -->
+
+									</a></li>
 								</ul>
 								<!-- /.feeds -->
 							</div>

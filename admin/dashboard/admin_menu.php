@@ -1,3 +1,14 @@
+<li class="dropdown"><a href="#" title="" data-toggle="dropdown"><i class="icon-tasks"></i><span>Configuration <strong></strong></span><i class="icon-angle-down left-padding"></i></a>
+							<ul class="dropdown-menu pull-right">
+							<li><a href="add_banner.php" title=""><i class="icon-plus"></i>Add new Banner</a></li>
+							<li><a href="#" title=""><i class="icon-reorder"></i>Manage Banners</a></li>
+								<li><a href="add_faq.php" title=""><i class="icon-plus"></i>Add FAQ Item</a></li>
+								<li><a href="#" title=""><i class="icon-reorder"></i>Manage Faqs</a></li>
+								
+							</ul>
+						</li>
+
+
 <li class="dropdown"><a href="#" title="" data-toggle="dropdown"><i class="icon-tasks"></i><span>Users <strong></strong></span><i class="icon-angle-down left-padding"></i></a>
 							<ul class="dropdown-menu pull-right">
 							<li><a href="add_user.php" title=""><i class="icon-plus"></i>Add new User</a></li>
@@ -25,3 +36,6 @@
 							<li><a href="features.php" title=""><i class="icon-reorder"></i>Manage Features</a></li>
 							</ul>
 						</li>
+						
+						
+						
