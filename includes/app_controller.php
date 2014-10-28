@@ -1,6 +1,6 @@
 <?php
  ini_set ( 'display_errors', 'Off' );
- error_reporting (0);
+// error_reporting (0);
 ?>
 <?php
 
@@ -76,6 +76,14 @@ if ($_POST ['Package'] && ! $_POST ['_method']) {
 	// print_r($_FILES);
 	$mc->addPackage ( $_POST ['Package'], $_FILES );
 }
+
+
+
+// Update Users edit
+if (($_POST ['_method'] == 'put') && ($_POST ['my_profile'])) {
+	$mc->updateUsers ( $_POST ['my_profile'] );
+}
+
 
 // check package edit
 if (($_POST ['_method'] == 'put') && ($_POST ['Package'])) {

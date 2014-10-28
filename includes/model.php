@@ -111,7 +111,7 @@ class MainModel {
 	
 	// get Users
 	public function getUser($filter) {
-		$qry = "Select id, firstname as firstname, lastname as lastname , email as email,mobile as mobile, created as created from users where id= '" . $filter . "'";
+		$qry = "Select id, firstname as firstname, lastname as lastname , email as email,mobile as mobile, company_name as company_name, designation as designation, created as created from users where id= '" . $filter . "'";
 		
 		$data = $this->execGetQuery ( $qry );
 		return $data;
@@ -278,6 +278,25 @@ class MainModel {
 		$qry .= " where id =" . $package ['id'];
 		return $this->execQuery ( $qry );
 	}
+	
+	
+	// update Users
+	public function updateUsers($Users = array()) {
+		$qry = 'update users set ';
+	
+		$qry .= "company_name = '" . mysql_escape_string ( $Users ['company_name'] ) . "'" . ',';
+	
+		 $qry .= " remark= '" . mysql_escape_string ( $Users ['remark'] ) . "'" . ',';
+		 $qry .= "company_logo= '" . mysql_escape_string ( $Users ['company_logo'] ) . "'" . ',';
+		$qry .= "designation = '" . mysql_escape_string ( $Users ['designation'] ) . "'";
+		
+		$qry .= " where id =" . $Users ['id'];
+	//	print_r($qry);
+		return $this->execQuery ( $qry );
+	}
+	
+	
+	
 	// get Package
 	public function getPackage($id) {
 		$qry = "Select * from  packages where id = " . $id;
@@ -363,6 +382,9 @@ class MainModel {
 		$data = $this->execSingleQueryResult ( $qry );
 		return $data;
 	}
+	
+	
+	
 	// update Package
 	public function updateFeature($package = array()) {
 		$qry = 'update features set ';
@@ -375,6 +397,7 @@ class MainModel {
 		$qry .= " where id =" . $package ['id'];
 		return $this->execQuery ( $qry );
 	}
+	
 	
 	// Customer related zone
 	public function isUserACustomer($user) {
@@ -691,7 +714,8 @@ class MainModel {
 			$query = ('SELECT   user_zone_sms.* ,users.id as u_id, users.email,users.firstname, users.lastname from user_zone_sms left JOIN users ON user_zone_sms.user_id = users.id  ' . ' where user_zone_sms.id='. $id);
 		 
 		// print_r($query);
-		return $this->execGetQuery($query)[0];
+		$d= $this->execGetQuery($query);
+		return $d[0];
 	}
 	//Approve zonesms request 
 	
