@@ -1,2 +1,4 @@
 config/*
 docs/*.sql
+docs/gzip_php
+banners

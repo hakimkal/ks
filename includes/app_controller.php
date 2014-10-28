@@ -1,6 +1,6 @@
 <?php
- ini_set ( 'display_errors', 'Off' );
- error_reporting (0);
+ini_set ( 'display_errors', 'Off' );
+// error_reporting (0);
 ?>
 <?php
 
@@ -28,12 +28,12 @@ if (! empty ( $_SESSION ['User'] ) && ($_SESSION ['User'] ['user_type'] == 'cust
 	$sms_credit_balance = $mc->getSMSCreditBalance ( $conn, $_SESSION ['User'] ['id'] );
 }
 // get signup post form
-//print_r($_SESSION['User']);
+// print_r($_SESSION['User']);
 if ($_POST ['User'] && ! $_SESSION ['User'] ['id']) {
 	// print_r($_POST['User']);
 	
 	// $_SESSION['u_debug'] = $_POST['User'];
-	$mc->signUp ( $_POST ['User']);
+	$mc->signUp ( $_POST ['User'] );
 } elseif ($_POST ['User'] && $_SESSION ['User'] ['id']) {
 	
 	echo $mc->signUp ( $_POST ['User'], true );
@@ -64,8 +64,8 @@ if ($_POST ['Session'] && ! ($_SESSION ['User'])) {
 		$mc->userLounge ();
 	} else {
 		$_SESSION ['error'] = " Invalid login credentials";
-		print_r($user);
-	 $mc->redirect ( 'index.php' );
+		print_r ( $user );
+		$mc->redirect ( 'index.php' );
 	}
 } elseif ($_POST ['Session'] && ($_SESSION ['User'])) {
 	$mc->userLounge ();
@@ -234,50 +234,44 @@ if ($_POST ['Bulksms'] && $_FILES ['Bulksms']) {
 	// }
 }
 
-
-////Add ZoneSMS Area Post Submission
-if ($_POST ['ZoneSMSArea']  && ! $_POST ['_method']) {
-	$mc->addZoneSMSArea($_POST['ZoneSMSArea']);
+// //Add ZoneSMS Area Post Submission
+if ($_POST ['ZoneSMSArea'] && ! $_POST ['_method']) {
+	$mc->addZoneSMSArea ( $_POST ['ZoneSMSArea'] );
 }
 // check zonesms edit
 if (($_POST ['_method'] == 'edit_zone_sms_area') && ($_POST ['ZoneSMSArea'])) {
-	$mc->updateZoneSMSArea( $_POST ['ZoneSMSArea'] );
+	$mc->updateZoneSMSArea ( $_POST ['ZoneSMSArea'] );
 }
-////Add ZoneSMSCity Post Submission
-if ($_POST ['ZoneSMSAreaCity']  && ! $_POST ['_method']) {
-	//$mc->addZoneSMSArea($_POST['ZoneSMSArea']);
-	//print_r($_POST);
-	//print_r($_SERVER);
-	$mc->addZoneAreaCities($_POST['ZoneSMSAreaCity']);
+// //Add ZoneSMSCity Post Submission
+if ($_POST ['ZoneSMSAreaCity'] && ! $_POST ['_method']) {
+	// $mc->addZoneSMSArea($_POST['ZoneSMSArea']);
+	// print_r($_POST);
+	// print_r($_SERVER);
+	$mc->addZoneAreaCities ( $_POST ['ZoneSMSAreaCity'] );
 }
-
 
 // check zonesms city edit
 
 if (($_POST ['_method'] == 'edit_zone_sms_area_city') && ($_POST ['ZoneSMSAreaCity'])) {
-	print_r($_POST);
-	$mc->updateZoneSMSAreaCity( $_POST ['ZoneSMSAreaCity'] );
+	print_r ( $_POST );
+	$mc->updateZoneSMSAreaCity ( $_POST ['ZoneSMSAreaCity'] );
 }
 
-
-if($_POST['ForgotUserPass'] && !$_POST['_method'])
-{
-//	print_r($_POST);
-	$mc->requestPasswordLink($_POST['ForgotUserPass']);
+if ($_POST ['ForgotUserPass'] && ! $_POST ['_method']) {
+	// print_r($_POST);
+	$mc->requestPasswordLink ( $_POST ['ForgotUserPass'] );
 }
 
-if($_POST['ResetPass'] && $_POST['_method'])
-{
-	//	print_r($_POST);
-	$mc->changePassword($_POST['ResetPass']);
+if ($_POST ['ResetPass'] && $_POST ['_method']) {
+	// print_r($_POST);
+	$mc->changePassword ( $_POST ['ResetPass'] );
 }
 
-if($_POST['ZonesmsRequest'] && !$_POST['_method'])
-{
-		print_r($_POST);
-	$mc->requestZonesms($_POST['ZonesmsRequest']);
+if ($_POST ['ZonesmsRequest'] && ! $_POST ['_method']) {
+	print_r ( $_POST );
+	$mc->requestZonesms ( $_POST ['ZonesmsRequest'] );
 }
-//Send BulkSMS Function
+// Send BulkSMS Function
 function sendBulkSMS($numbers, $message, $url) {
 	if (isCurl ()) {
 		$myCurl = new mycurl ( $url );
@@ -301,10 +295,69 @@ function sendBulkSMS($numbers, $message, $url) {
 	}
 }
 
+// Add Banner
 
+// include ImageManipulator class
+require_once (dirname ( dirname ( __FILE__ ) ) . '/ImageManipulator.php');
+if ($_POST ['Banner'] && ! ($_POST ['_method'])) {
+	
+	if ($_POST ['Banner'] && $_FILES ['BannerImage'] ['error'] > 0) {
+		$_SESSION ['error'] = "Error: " . $_FILES ['BannerImage'] ['error'];
+		$mc->redirect ( "admin/dashboard/add_banner.php" );
+		exit ();
+	} 
+	else {
+		// array of valid extensions
+		$validExtensions = array (
+				'.jpg',
+				'.jpeg',
+				'.gif',
+				'.png' 
+		);
+		// get extension of the uploaded file
+		$fileExtension = strtolower ( strrchr ( $_FILES ['BannerImage'] ['name'], "." ) );
+		// check if file Extension is on the list of allowed ones
+		// print_r($fileExtension);
+		if (in_array ( $fileExtension, $validExtensions )) {
+			$newNamePrefix = time () . '_';
+			
+			$manipulator = new ImageManipulator ( $_FILES ['BannerImage'] ['tmp_name'] );
+			/*
+			 * $width = $manipulator->getWidth(); $height = $manipulator->getHeight(); $centreX = round($width / 2); $centreY = round($height / 2); // our dimensions will be 200x130 //590 x 630 $x1 = $centreX - 295; // 200 / 2 $y1 = $centreY - 315; // 130 / 2 $x2 = $centreX + 295; // 200 / 2 $y2 = $centreY + 315; // 130 / 2 // center cropping to 200x130 $newImage = $manipulator->crop($x1, $y1, $x2, $y2);
+			 */
+			$newImage = $manipulator->resample ( 590, 630 );
+			// saving file to uploads folder
+			$fileName = dirname ( dirname ( __FILE__ ) ) . '/banners/' . $newNamePrefix . $_FILES ['BannerImage'] ['name'];
+			$manipulator->save ( $fileName );
+			$Banner = $_POST ['Banner'];
+			$Banner ['image_link'] = $fileName;
+			$Banner ['image_type'] = $fileExtension;
+			$mc->AddBanner ( $Banner );
+			$_SESSION ['success'] = 'Successfully saved new banner';
+			$mc->redirect ( "admin/dashboard/add_banner.php" );
+		} else {
+			$_SESSION ['error'] = 'You must upload an image...';
+			// print_r($_POST);
+			$mc->redirect ( "admin/dashboard/add_banner.php" );
+			exit ();
+		}
+	}
+}
 
+// Add FAQ
+if($_POST['FAQ']){
+if ($_POST ['FAQ'] && ! ($_POST ['_method'])) {
 
-
+	$mc->AddFaq ( $_POST ['FAQ'] );
+	$_SESSION ['success'] = 'Successfully saved new FAQ Item';
+	$mc->redirect ( "admin/dashboard/add_faq.php" );
+} else {
+	$_SESSION ['error'] = 'Error adding an FAQ...';
+	// print_r($_POST);
+	$mc->redirect ( "admin/dashboard/add_faq.php" );
+	exit ();
+}
+}
 // if(empty($_POST) && empty($_FILES) && ($_SERVER['REQUEST_METHOD'] == 'GET'))
 // {$mc->checkLogin(true);}
 ?>

@@ -1,4 +1,4 @@
-<?php $pageName = 'Add Feature';?>
+<?php $pageName = 'Add Banner';?>
 <?php require('admin_top.php');?>
 
 
@@ -27,7 +27,7 @@
 							 
 								<!--=== Edit Account ===-->
 								<div class="tab-pane active" id="tab_edit_account">
-									<form class="form-horizontal" action="#">
+									<form class="form-horizontal" enctype="multipart/form-data"  method="post" action="<?php echo BASE_URL;?>/includes/app_controller.php">
 										<div class="col-md-12">
 											<div class="widget">
 											 
@@ -36,13 +36,13 @@
 														<div class="col-md-6">
 															<div class="form-group">
 																<label class="col-md-4 control-label">Banner Text Title:</label>
-																<div class="col-md-8"><input type="text" name="regular" class="form-control" value="Kayum"></div>
+																<div class="col-md-8"><input type="text" name="Banner[title]" class="form-control" ></div>
 															</div>
 
 															<div class="form-group">
 																<label class="col-md-4 control-label"> Banner Detail Text:</label>
 																<div class="col-md-8">
-																<textarea rows="" cols="" class="form-control" ></textarea>
+																<textarea rows="" name="Banner[details]" cols="" class="form-control" ></textarea>
 																 </div>
 															</div>
 														</div>
@@ -52,7 +52,7 @@
 															<div class="form-group">
 																<label class="col-md-4 control-label">Banner Image:</label>
 																<div class="col-md-8">
-																	<input type="file">
+																	<input type="file" required="required" name="BannerImage">
 																</div>
 															</div>
 
@@ -68,8 +68,12 @@
 										</div> <!-- /.col-md-12 -->
 
 										 
-									</form>
+									
 								</div>
+								<div class="form-actions">
+												<input type="submit" value="Save Banner" class="btn btn-primary pull-right">
+											</div>
+											</form>
 								<!-- /Edit Account -->
 							</div> <!-- /.tab-content -->
 						</div>

@@ -655,6 +655,35 @@ elseif ($_SESSION ['User'] ['user_type'] != 'customer') {
 		}
 	}
 	
+	//Add Banner
+	
+	public function AddBanner($singleSmS = array()) {
+		// print_r($singleSms);
+		 
+		if ($this->db->addBanner ( $singleSmS )) {
+			// $_SESSION['success'] = "successfully saved messages";
+			// $this->redirect('dashboard/user_messages.php');
+			// exit();
+			return true;
+		} else {
+			return false;
+		}
+	}
+	//FAq
+	public function AddFaq($singleSmS = array()) {
+		// print_r($singleSms);
+			
+		if ($this->db->addFaq ( $singleSmS )) {
+			// $_SESSION['success'] = "successfully saved messages";
+			// $this->redirect('dashboard/user_messages.php');
+			// exit();
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	
 	// request ZoneSMS
 	public function requestZonesms($requesting_user = array()) {
 		 
