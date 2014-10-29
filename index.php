@@ -132,7 +132,7 @@ error_reporting(1);
 			<?php include("pull_faqs.php");?>
 		 
 	
-	</div>
+	</div> 
 
 </section>
 

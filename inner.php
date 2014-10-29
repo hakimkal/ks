@@ -97,53 +97,7 @@ function calcHeight()
 		
 		</div>
 <div id="main-container">
-<div id="main-nav">
-<div class="top_header">
-<div class="row">
-
-<div class="top_left">
-
-<a href="#" class="top_left_link">Support</a> | <a href="#" class="top_left_link">Contact</a>
-
-</div>
-
-<div class="login_btn">
-
-<div class="social_new">
-<div class="social_new1"><a href="#" class="twiter"></a></div>
-<div class="social_new1"><a href="#" class="google"></a></div>
-<div class="social_new1"><a href="#" class="facebook"></a></div>
-</div>
-
-<div class="login_btn1">
-<a href="#" class="lgo_link" data-reveal-id="myModal">Login</a> <span class="login_btn1_span">|</span>
-</div>
-<div class="login_btn1">
-<a href="#" class="lgo_link" data-reveal-id="myModal2">Sign Up</a>
-</div>
-</div>
-</div>
-</div>
-
-	<div class="row">
-			<div class="twelve columns">
-			<div id="logo" class="left animated fadeInDown">
-				<img src="images/logo1.png"/>
-			</div>
-			
-			<div id="mobile-toggle" class="show-for-small"><i class="entypo list"></i></div>
-			<div id="nav-holder" class="right">
-				<ul>
-					<li><a href="#features-scroll" class="scroll"><div class="blue-btn"> BULK SMS</div></a></li>
-					<li><a href="#gallery-scroll" class="scroll"><div class="blue-btn">ZONE SMS</div></a></li>
-					<li><a href="#pricing-scroll" class="scroll"><div class="blue-btn">MMS</div></a></li>
-					<li><a href="#faq-scroll" class="scroll"><div class="blue-btn">VOICE MSGS</div></a></li>
-					
-				</ul>
-			</div>
-		</div>
-	</div>
-</div>
+<?php include 'main_nav.php';?>
 
 
 
@@ -207,7 +161,7 @@ function calcHeight()
 				<a href="#"><i class="entypo-social dribbble text-white"></i></a>
 				<a href="#"><i class="entypo-social vimeo text-white"></i></a>
 			</div>
-			<img src="images/logo_footer.png"/>
+			
 			
 		</div>
 	

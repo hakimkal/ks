@@ -1,9 +1,8 @@
 <?php
-<<<<<<< HEAD
-ini_set ( 'display_errors', 'Off' );
-=======
+
+
  ini_set ( 'display_errors', 'Off' );
->>>>>>> 574b88e620635f82c4f0c4b3e3b6f9bf8f396e74
+ 
 // error_reporting (0);
 ?>
 <?php
@@ -11,6 +10,8 @@ ini_set ( 'display_errors', 'Off' );
 session_start ();
 
 require ('main_controller.php');
+// include ImageManipulator class
+require_once (dirname ( dirname ( __FILE__ ) ) . '/ImageManipulator.php');
 // var_dump($_POST);
 // sleep(40);
 // initiate main controller class
@@ -83,9 +84,62 @@ if ($_POST ['Package'] && ! $_POST ['_method']) {
 
 
 
-// Update Users edit
-if (($_POST ['_method'] == 'put') && ($_POST ['my_profile'])) {
-	$mc->updateUsers ( $_POST ['my_profile'] );
+// Edit User Profile
+if (($_POST ['_method'] == 'put') && ($_POST ['MyProfile'])) {
+	//$mc->updateUsers ( $_POST ['my_profile'] );
+	
+	
+	if ($_FILES ['edituploadedimage'] ['error'] > 0 && $_FILES ['edituploadedimage'] ['error'] !=4) {
+		$_SESSION ['error'] = "Error: " . $_FILES ['edituploadedimage'] ['error'];
+		$mc->redirect ( "dashboard/my_profile.php" );
+		exit ();
+		
+	}
+	elseif($_FILES['edituploadedimage']['error'] !=4) {
+		// array of valid extensions
+		$validExtensions = array (
+				'.jpg',
+				'.jpeg',
+				'.gif',
+				'.png'
+		);
+		// get extension of the uploaded file
+		$fileExtension = strtolower ( strrchr ( $_FILES ['edituploadedimage'] ['name'], "." ) );
+		// check if file Extension is on the list of allowed ones
+		// print_r($fileExtension);
+		if (in_array ( $fileExtension, $validExtensions )) {
+			$newNamePrefix = time () . '_';
+				
+			$manipulator = new ImageManipulator ( $_FILES ['edituploadedimage'] ['tmp_name'] );
+			/*
+			 * $width = $manipulator->getWidth(); $height = $manipulator->getHeight(); $centreX = round($width / 2); $centreY = round($height / 2); // our dimensions will be 200x130 //590 x 630 $x1 = $centreX - 295; // 200 / 2 $y1 = $centreY - 315; // 130 / 2 $x2 = $centreX + 295; // 200 / 2 $y2 = $centreY + 315; // 130 / 2 // center cropping to 200x130 $newImage = $manipulator->crop($x1, $y1, $x2, $y2);
+			*/
+			$newImage = $manipulator->resample ( 340, 340 );
+			// saving file to uploads folder
+			$fileName = dirname ( dirname ( __FILE__ ) ) . '/company_logos/' . $newNamePrefix . $_FILES ['edituploadedimage'] ['name'];
+			$manipulator->save ( $fileName );
+			 $_POST ['MyProfile']['company_logo'] = $fileName;
+			 
+			$mc->updateUsers ( $_POST['MyProfile'] );
+			$_SESSION ['success'] = 'Successfully updated profile';
+			$mc->redirect ( "dashboard/index.php" );
+		} else {
+			$_SESSION ['error'] = 'You must upload an image...';
+			// print_r($_POST);
+			$mc->redirect ( "dashboard/my_profile.php" );
+			exit ();
+		}
+	}
+	
+	
+	elseif($_FILES['edituploadedimage']['error'] == 4) {
+		 
+	
+			$mc->updateUsers ( $_POST['MyProfile'] );
+			$_SESSION ['success'] = 'Successfully updated profile';
+			$mc->redirect ( "dashboard/index.php" );
+		 
+	}
 }
 
 
@@ -309,8 +363,7 @@ function sendBulkSMS($numbers, $message, $url) {
 
 // Add Banner
 
-// include ImageManipulator class
-require_once (dirname ( dirname ( __FILE__ ) ) . '/ImageManipulator.php');
+
 if ($_POST ['Banner'] && ! ($_POST ['_method'])) {
 	
 	if ($_POST ['Banner'] && $_FILES ['BannerImage'] ['error'] > 0) {

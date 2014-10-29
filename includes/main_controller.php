@@ -527,13 +527,11 @@ elseif ($_SESSION ['User'] ['user_type'] != 'customer') {
 	
 	// update User
 	public function updateUsers($Users = array()) {
-		if ( file_exists ( $_FILES ['edituploadedimage'] ['tmp_name'] ) ||  is_uploaded_file ( $_FILES ['edituploadedimage'] ['tmp_name'] )) {
-			move_uploaded_file($_FILES['edituploadedimage']['tmp_name'], 'user_conpany_logo/');
-			$Users ['company_logo'] = $Users ['company_logo'];
-		}
+		 
+		 
 		if ($this->db-> updateUsers ($Users)) {
 				
-			$_SESSION ['success'] = "Successfully updated  User Profile";
+			$_SESSION ['success'] = "Successfully updated  user Profile";
 			$this->redirect ( 'dashboard/my_profile.php' );
 			exit ();
 		}

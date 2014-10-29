@@ -141,11 +141,9 @@ function calcHeight()
 			<div class="footer-social">
 				<a href="#"><i class="entypo-social facebook text-white"></i></a>
 				<a href="#"><i class="entypo-social twitter text-white"></i></a>
-				<a href="#"><i class="entypo-social behance text-white"></i></a>
-				<a href="#"><i class="entypo-social dribbble text-white"></i></a>
-				<a href="#"><i class="entypo-social vimeo text-white"></i></a>
+				 
 			</div>
-			<img src="images/logo_footer.png"/>
+			
 			
 		</div>
 	

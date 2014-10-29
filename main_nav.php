@@ -29,7 +29,7 @@
 	<div class="row" style="height:150px;">
 			<div class="twelve columns" style="margin-top:10px;">
 			<div id="logo" class="left animated fadeInDown">
-				<img src="images/logo1.png"/>
+				<a href="index.php" ><img src="images/logo1.png"/></a>
 			</div>
 			
 			<div id="mobile-toggle" class="show-for-small"><i class="entypo list"></i></div>

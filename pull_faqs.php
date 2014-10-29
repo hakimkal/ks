@@ -7,32 +7,45 @@ $banners = $mc->getFAQs ( $conn, 0, 10 );
 // print_r($banners);
 
 ?>
+<?php
 
-<div class="four columns fast-anim flyIn">
-<?php foreach ($banners as $f):?>
-	
-	
-<div class="question-holder">
-	<div class="question">
-		<i class="entypo circled-help text-white">&nbsp;</i><span
-			class="text-white"><?php echo $f['title'];?></span><i
-			class="entypo chevron-thin-down text-white show-question"></i>
-	</div>
-	<div class="answer animated">
-		<p>
-						<?php echo $f['details'];?>
-							</p>
-	</div>
-</div>
+//$values = range(1, 7); 
+$n = count($banners);
+if($n % 2 ===0){
+	$banners[]['title'] = '';
+	$banners[]['details'] = '';
+}
+$rows = array_chunk($banners, 3); 
 
 
-<?php endforeach;?>
+foreach ($rows as $row) {
+	print '<div class="four columns fast-anim flyIn"> ';
+	foreach ($row as $value) {
+    print '<div class="question-holder">
+		<div class="question">
+			<i class="entypo circled-help text-white">&nbsp;</i><span	class="text-white">'.$value['title'].' </span>
+		<i	class="entypo chevron-thin-down text-white show-question"></i></div>	 ';
+     
+        print '<div class="answer animated"><p>		'.htmlentities($value['details']) .'					</p></div></div> ';
+       
+   
+}
+print "</div> ";
+}
+
+?>
+ 
+ 
+ 
  
 
 
-</div>
-<!-- 
 
+
+
+
+
+<!-- 
 <div class="question-holder">
 				<div class="question">
 					<i class="entypo circled-help text-white">&nbsp;</i><span class="text-white">How can I make payment?</span><i class="entypo chevron-thin-down text-white show-question"></i>
@@ -44,7 +57,7 @@ $banners = $mc->getFAQs ( $conn, 0, 10 );
 				</div>	
 			</div>
 			
-			<div class="question-holder">
+		 	<div class="question-holder">
 				<div class="question">
 					<i class="entypo circled-help text-white">&nbsp;</i><span class="text-white">Is payment recurring?</span><i class="entypo chevron-thin-down text-white show-question"></i>
 				</div>
@@ -113,4 +126,3 @@ $banners = $mc->getFAQs ( $conn, 0, 10 );
 -->
 
 
- 

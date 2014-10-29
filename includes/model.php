@@ -111,7 +111,7 @@ class MainModel {
 	
 	// get Users
 	public function getUser($filter) {
-		$qry = "Select id, firstname as firstname, lastname as lastname , email as email,mobile as mobile, company_name as company_name, designation as designation, created as created from users where id= '" . $filter . "'";
+		$qry = "Select id, firstname as firstname,company_logo as company_logo, lastname as lastname , email as email,mobile as mobile, company_name as company_name, designation as designation, created as created from users where id= '" . $filter . "'";
 		
 		$data = $this->execGetQuery ( $qry );
 		return $data;
@@ -286,7 +286,7 @@ class MainModel {
 	
 		$qry .= "company_name = '" . mysql_escape_string ( $Users ['company_name'] ) . "'" . ',';
 	
-		 $qry .= " remark= '" . mysql_escape_string ( $Users ['remark'] ) . "'" . ',';
+		 
 		 $qry .= "company_logo= '" . mysql_escape_string ( $Users ['company_logo'] ) . "'" . ',';
 		$qry .= "designation = '" . mysql_escape_string ( $Users ['designation'] ) . "'";
 		
