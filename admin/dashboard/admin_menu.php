@@ -3,7 +3,7 @@
 							<li><a href="add_banner.php" title=""><i class="icon-plus"></i>Add new Banner</a></li>
 							<li><a href="#" title=""><i class="icon-reorder"></i>Manage Banners</a></li>
 								<li><a href="add_faq.php" title=""><i class="icon-plus"></i>Add FAQ Item</a></li>
-								<li><a href="#" title=""><i class="icon-reorder"></i>Manage Faqs</a></li>
+								<li><a href="faqs.php" title=""><i class="icon-reorder"></i>Manage Faqs</a></li>
 								
 							</ul>
 						</li>

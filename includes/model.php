@@ -586,13 +586,14 @@ class MainModel {
 	
 	// add Banner
 	public function addBanner($singleSmS = array()) {
-		$qry = 'INSERT INTO banners(`title`,`details`,`image_link`,`image_type`,`created`) VALUES(';
+		$qry = 'INSERT INTO banners(`title`,`details`,`image_link`,`image_type`,`created`,`category`) VALUES(';
 		$qry .= "'" . mysql_escape_string ( $singleSmS ['title'] ) . "'" . ',';
 		$qry .= "'" . mysql_escape_string ( $singleSmS ['details'] ) . "'" . ',';
 		$qry .= "'" . mysql_escape_string ( $singleSmS ['image_link'] ) . "'" . ',';
 		$qry .= "'" . mysql_escape_string ( $singleSmS ['image_type'] ) . "'" . ',';
 		
-		$qry .= "NOW()";
+		$qry .= "NOW(),";
+		$qry .= "'" . mysql_escape_string ( $singleSmS ['category'] ) . "'" ;
 		$qry .= ')';
 		// print_r($qry);
 		return $this->execQuery ( $qry );
@@ -675,6 +676,20 @@ class MainModel {
 		
 		$qry .= "modified=NOW()";
 		
+		$qry .= " where id =" . $package ['id'];
+		return $this->execQuery ( $qry );
+	}
+	
+	// update faq item
+	public function updateFAQ($package = array()) {
+		$qry = 'update faqs set ';
+	
+		$qry .= "title = '" . mysql_escape_string ( $package ['title'] ) . "'" . ',';
+	
+		$qry .= " details= '" . mysql_escape_string ( $package ['details'] ) . "'" ;
+	
+		 
+	
 		$qry .= " where id =" . $package ['id'];
 		return $this->execQuery ( $qry );
 	}
@@ -774,6 +789,22 @@ class MainModel {
 		// print_r($query);
 		return $this->get_pdo_count ( $conn, $query );
 	}
+	
+
+	//Get FAQs count
+	
+	public function get_faqs_count($conn, $filter = null) {
+		$table = 'faqs';
+		if ($filter != null) {
+			$query = 'SELECT COUNT(*) FROM ' . $table . '  where   ' . $filter;
+		}
+	
+		else {
+			$query = 'SELECT COUNT(*) FROM ' . $table;
+		}
+		// print_r($query);
+		return $this->get_pdo_count ( $conn, $query );
+	}
 	// GEt User ZoneSMS Requests
 	public function getUsersZonesmsRequests($conn, $limit_start, $limit_end, $user_id = null, $status = null) {
 		if (($limit_end == - 10) && ($limit_start == - 10) && (! $user_id && ! $status)) {
@@ -801,13 +832,22 @@ class MainModel {
 		// /print_r($query);
 		return $this->get_pdo_record ( $conn, $query, $limit_start, $limit_end );
 	}
+	
+	// GEt FAQs
+	public function getFAQsPDO($conn, $limit_start, $limit_end) {
+		// $query = ('SELECT user_contacts.firstname,user_contacts.lastname, user_contacts.phone, user_contacts.gender, user_contacts.birthday FROM user_contacts INNER JOIN users ON user_contacts.user_id = users.id where user_id=' . $user_id . ' ORDER BY user_contacts.firstname ASC');
+		$query = "SELECT faqs.id, faqs.title, faqs.details from faqs order by faqs.created desc limit :start , :end";
+	
+	// print_r($query);
+		return $this->get_pdo_record ( $conn, $query, $limit_start, $limit_end );
+	}
 	// GEt Banners
 	public function getBanners($conn, $limit_start, $limit_end) {
 		if (($limit_end == - 10) && ($limit_start == - 10)) {
 			// $query = ('SELECT user_contacts.firstname,user_contacts.lastname, user_contacts.phone, user_contacts.gender, user_contacts.birthday FROM user_contacts INNER JOIN users ON user_contacts.user_id = users.id where user_id=' . $user_id . ' ORDER BY user_contacts.firstname ASC');
-			$query = ('SELECT  title, details, image_link, image_type from banners  ORDER BY  title DESC LIMIT :start,:end');
+			$query = ('SELECT  title, details, image_link, image_type,category from banners  ORDER BY  title DESC LIMIT :start,:end');
 		} elseif (($limit_end != - 10) && ($limit_start != - 10)) {
-			$query = ('SELECT title, details, image_link, image_type  from banners ORDER BY title DESC LIMIT :start,:end');
+			$query = ('SELECT title, details, image_link, image_type,category  from banners ORDER BY title DESC LIMIT :start,:end');
 		}
 		// print_r($query);
 		return $this->get_pdo_record ( $conn, $query, $limit_start, $limit_end );
@@ -825,6 +865,16 @@ class MainModel {
 		return $this->get_pdo_record ( $conn, $query, $limit_start, $limit_end );
 	}
 	
+	// GEtFAQ 
+	public function getFAQ($id) {
+	
+		// $query = ('SELECT user_contacts.id, user_contacts.firstname,user_contacts.lastname, user_contacts.phone, user_contacts.gender, user_contacts.birthday FROM user_contacts INNER JOIN users ON user_contacts.user_id = users.id where user_id=' . $user_id . ' ORDER BY user_contacts.firstname ASC LIMIT :start,:end');
+		$query = ('SELECT   faqs.* from faqs   where faqs.id=' . $id);
+	
+		// print_r($query);
+		$d = $this->execGetQuery ( $query );
+		return $d [0];
+	}
 	// GEt User ZoneSMS Single Request
 	public function getUserZonesmsRequest($id) {
 		

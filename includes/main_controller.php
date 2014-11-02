@@ -76,6 +76,16 @@ class MainController {
 		}
 		$this->redirect ( "admin/dashboard/add_zone.php" );
 	}
+	
+	// delete faq
+	public function deleteFaq($model, $id) {
+		if ($this->db->delete ( $model, $id )) {
+			$_SESSION ['success'] = "Successfully deleted faq item ";
+		} else {
+			$_SESSION ['error'] = "Unable to delete";
+		}
+		$this->redirect ( "admin/dashboard/faqs.php" );
+	}
 	// get single zone_sms_area
 	public function getZoneSMSArea($id) {
 		return $this->db->getZoneSMSArea ( $id );
@@ -808,7 +818,12 @@ elseif ($_SESSION ['User'] ['user_type'] != 'customer') {
 		$users = $this->db->getUserTestimonialsPDO($conn,  $limit_start, $limit_end) ;
 		return $users;
 	}
-	
+	// get all faqs
+	public function getFAQsPDO($conn,  $limit_start, $limit_end) {
+		$users = $this->db->getFAQsPDO($conn,  $limit_start, $limit_end) ;
+	 
+		return $users;
+	}
 	
 	// get all banners
 	public function getBanners($conn,  $limit_start, $limit_end) {
@@ -819,6 +834,22 @@ elseif ($_SESSION ['User'] ['user_type'] != 'customer') {
 	public function getFAQs($conn,  $limit_start, $limit_end) {
 		$users = $this->db->getFAQs($conn,  $limit_start, $limit_end) ;
 		return $users;
+	}
+	
+	// get  FAQ item
+	public function getFAQ($id) {
+		$users = $this->db->getFAQ($id) ;
+		return $users;
+	}
+	
+	// update faq item
+	public function updateFAQ($package = array()) {
+		if ($this->db->updateFAQ( $package )) {
+				
+			$_SESSION ['success'] = "Successfully updated  Faq Item ";
+			$this->redirect ( 'admin/dashboard/faqs.php' );
+			exit ();
+		}
 	}
 	// get single zonesms request
 	public function getUserZonesmsRequest($id) {

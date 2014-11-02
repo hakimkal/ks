@@ -18,6 +18,10 @@ break;
 case "zone_area":
 	$zoneSMSArea = $mc->deleteZoneSMSArea('zone_sms_areas'  ,$_GET['id']);
 	break;
+	
+	case "faq":
+		$faq = $mc->deleteFaq('faqs'  ,$_GET['id']);
+		break;
 default:
 	break;
 }

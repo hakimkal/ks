@@ -46,7 +46,30 @@
 																 </div>
 															</div>
 														</div>
+													<div class="col-md-6">
+															<div class="form-group">
+																<label class="col-md-4 control-label">Banner Section:</label>
+																<div class="col-md-8">
+																	<?php $banner_sections =  array(
+																			'home' => 'Home Page',
+																			
+																			'mms' => 'MMS Page',
+																			'zonesms' => 'Zonesms Page',
+																			'voice' => 'Voice MSG Page','
+																			bulksms' => 'Bulksms Page');?>
+																	<select name="Banner[section]">
+																
+																	<?php foreach (($banner_sections) as $bs =>$vl):?>
+																	<option value="<?php echo $bs ;?>"> <?php echo $vl ; ?></option>
+																	<?php endforeach;?>
+																	 </select>
+																</div>
+															</div>
 
+														 
+														</div>
+													
+													
 
 														<div class="col-md-6">
 															<div class="form-group">

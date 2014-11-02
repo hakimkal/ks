@@ -18,8 +18,10 @@ $fl = realpath($_SERVER['DOCUMENT_ROOT'] );
 else{
 $fl = $_SERVER['DOCUMENT_ROOT'].'/kootsms/';
 }
-
+ 
 ?>
+ 
+<?php if($b['category'] == 'home' && basename($_SERVER['SCRIPT_NAME']) == 'index.php'):?>
 <li>
 	<div class="six columns animated fadeInUpBig slide-left hide-for-small">
 		<img alt="front" src="<?php echo str_replace($fl,'', $b['image_link']);?>" />
@@ -36,7 +38,7 @@ $fl = $_SERVER['DOCUMENT_ROOT'].'/kootsms/';
 
 	</div>
 </li>
-
+<?php endif;?>
 <?php endforeach;?>
 
 <!-- 

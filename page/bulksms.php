@@ -22,12 +22,16 @@
 <div id="loaded">
 	
 	<section class="home-content-wrap">
-	<section class="section bg-right iMac">
+	<section class="section bg-right iMac" style="background: url(img/placeholders/iMack_section_bg_right.png) right
+		center no-repeat fixed;">
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-6 wow fadeInUp">
 				<h2 class="h1">Lorem Ipsum &amp; simply text <br><span class="stronger">Lorem &amp; Ipsum</span>.</h2>
 				<p class="hidden-xs">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</p>
+				
+				
+				
 				<a href="#" class="btn btn-primary btn-xl with-icon"> View Our Pricing  </a>  <a href="#" class="btn btn-primary btn-xl with-icon"> Chat to Us Live </a></div>
 		</div>
 	</div>

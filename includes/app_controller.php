@@ -151,7 +151,10 @@ if (($_POST ['_method'] == 'put') && ($_POST ['MyProfile'])) {
 if (($_POST ['_method'] == 'put') && ($_POST ['Package'])) {
 	$mc->updatePackage ( $_POST ['Package'] );
 }
-
+// check faq item edit
+if (($_POST ['_method'] == 'put') && ($_POST ['FAQ'])) {
+	$mc->updateFAQ ( $_POST ['FAQ'] );
+}
 // add feature to package
 
 if ($_POST ['Feature'] && ! $_POST ['_method']) {
