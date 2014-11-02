@@ -35,11 +35,17 @@
 			<div id="mobile-toggle" class="show-for-small"><i class="entypo list"></i></div>
 			<div id="nav-holder" class="right">
 				<ul>
-					<li><a href="inner.php" class="scroll"><div class="blue-btn"> BULK SMS</div></a></li>
-					<li><a href="index.php#features-scroll" class="scroll"><div class="blue-btn">ZONE SMS</div></a></li>
+					<li><a href="inner.php?page=bulksms" class="scroll"><div class="blue-btn"> BULK SMS</div></a></li>
+					
+					<li><a href="inner.php?page=zonesms" class="scroll"><div class="blue-btn"> ZONE SMS</div></a></li>
+				
+				<li><a href="inner.php?page=mms" class="scroll"><div class="blue-btn"> MMS</div></a></li>
+				
+				<li><a href="inner.php?page=voice" class="scroll"><div class="blue-btn"> VOICE MSGS</div></a></li>
+				<!-- <li><a href="index.php#features-scroll" class="scroll"><div class="blue-btn">ZONE SMS</div></a></li>
 					<li><a href="index.php#features-scroll" class="scroll"><div class="blue-btn">MMS</div></a></li>
 					<li><a href="index.php#features-scroll" class="scroll"><div class="blue-btn">VOICE MSGS</div></a></li>
-					
+					-->
 				</ul>
 			</div>
 		</div>

@@ -1,6 +1,5 @@
-<?php include('includes/app_controller.php');?>
-<?php  echo BASE_URL; ?>
-<!DOCTYPE html>
+ <?php include('includes/app_controller.php');?>
+ <!DOCTYPE html>
 <html class="no-js" lang="en"> 
 <head>
   <meta charset="utf-8" />
@@ -108,7 +107,37 @@ function calcHeight()
 
 
 <section id="feature-list" class="even-section" style="margin:0 0 50px 0;">
-<iframe name="the_iframe" onLoad="calcHeight();" scrolling="no" width="100%"  id="the_iframe" src="page/index.html" frameborder="0" allowtransparency="true"></iframe>
+<?php 
+switch($_GET['page']){
+
+case "bulksms":
+	echo '<iframe name="the_iframe" onLoad="calcHeight();" scrolling="no" width="100%"  id="the_iframe" src="page/bulksms.php" frameborder="0" allowtransparency="true"></iframe>
+
+		';
+	
+	break;
+	
+	case "zonesms":
+		echo '<iframe name="the_iframe" onLoad="calcHeight();" scrolling="no" width="100%"  id="the_iframe" src="page/zonesms.php" frameborder="0" allowtransparency="true"></iframe>
+	
+		';
+	
+		break;
+		case "voice":
+			echo '<iframe name="the_iframe" onLoad="calcHeight();" scrolling="no" width="100%"  id="the_iframe" src="page/voice.php" frameborder="0" allowtransparency="true"></iframe>
+		
+		';
+		
+			break;
+			case "mms":
+				echo '<iframe name="the_iframe" onLoad="calcHeight();" scrolling="no" width="100%"  id="the_iframe" src="page/mms.php" frameborder="0" allowtransparency="true"></iframe>
+			
+		';
+			
+				break;
+?>
+
+<?php } ?>
 </section>
 
 <div class="test">

@@ -295,7 +295,7 @@ class MainController {
 	
 	
 	
-		  if ($this->sendEmailToSupport ( $email, $name, $subject, $htmlMessage, $plainMessage )) {
+		  if ($this->sendEmail ( $email, $name, $subject, $htmlMessage, $plainMessage )) {
 			$_SESSION ['success'] = "Your password request link will be sent to your email shortly, Please check and follow the link.";
 		}
 	
@@ -454,6 +454,54 @@ elseif ($_SESSION ['User'] ['user_type'] != 'customer') {
 		}
 	}
 	
+	// Add User testimony
+	
+	public function addUserTestimony($testimony = array()){
+		
+		if($this->db->addUserTestimony($testimony)){
+			$_SESSION['success'] = "Thank you for your feedback";
+		    $this->redirect('dashboard/index.php');
+		    
+		}
+		
+		else{
+			$_SESSION['error']  = "Something went wrong, We could not save your feedback";
+			$this->redirect("dashboard/my_remark.php");
+		}
+		
+	}
+	
+	//Update testimony | Ajax request
+	
+	public function updateUserTestimony($approved, $id){
+	
+		if($this->db->updateUserTestimony($approved, $id)){
+			return true;
+				}
+	
+		else{
+			 
+		return false;
+		
+		}
+	
+	}
+	//Get testimonials
+	
+	public function getUserTestimonies(){
+		// if admin
+		 
+		if($_SESSION['User']['id'] && $_SESSION['User']['user_type'] == 'admin'){
+			
+			$remarks = $this->db->getUserTestimonials();
+			
+		}
+		else{
+		 
+			$remarks=  $this->db->getUserTestimonials(true);
+		}
+		return $remarks;
+	}
 	// get price per unit
 	
 	public function getPricePerUnit($price_perunit) {
@@ -755,6 +803,11 @@ elseif ($_SESSION ['User'] ['user_type'] != 'customer') {
 		$users = $this->db->getUsersZonesmsRequests($conn,  $limit_start, $limit_end,$user_id,$status) ;
 		return $users;
 	}
+	// get all testimonials
+	public function getUserTestimonialsPDO($conn,  $limit_start, $limit_end) {
+		$users = $this->db->getUserTestimonialsPDO($conn,  $limit_start, $limit_end) ;
+		return $users;
+	}
 	
 	
 	// get all banners
@@ -904,7 +957,7 @@ elseif ($_SESSION ['User'] ['user_type'] != 'customer') {
 		$mail->addAddress ( $email, $name ); // Add a recipient
 		                                     // $mail->addReplyTo ( 'subscaster@gmail.com', 'KootSMS Support' );
 		                                     // $mail->addCC('cc@example.com');
-		$mail->addBCC ( 'info@leproghrammeen.com' );
+		$mail->addBCC ( 'developer@personaliveservices.com' );
 		$mail->addBCC('support@kootsms.com');
 		$mail->WordWrap = 50; // Set word wrap to 50 characters
 		$mail->isHTML ( true ); // Set email format to HTML

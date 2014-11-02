@@ -143,7 +143,11 @@ $mc->isAdmin(true);
 						<i class="icon-resize-vertical"></i>
 					</a>
 				</li>
-
+<li>
+					<a href="remarks.php" class="dropdown-toggle">
+						Testimonials
+					</a>
+				</li>
 				 
 				<!-- User Login Dropdown -->
 				<li class="dropdown user">

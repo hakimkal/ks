@@ -55,13 +55,20 @@
 					<ul class="dropdown-menu">
 						<li><a href="add_contact.php"><i class="icon-user"></i> Add Contact</a></li>
 						
+				
 						<li class="divider"></li>
 						<li><a href="user_contacts.php"><i class="icon-key"></i> All Contacts </a></li>
 					</ul>
 				</li>
 				
-			 
-				
+			 		<li class="dropdown">
+					<a href="my_remark.php" class="">
+						<i class="icon-folder-open"></i>
+						 Say something about us</span> 
+					</a>
+					
+					 
+				</li>
 				<!-- Project Switcher Button -->
 				<li class="dropdown ">
 			
@@ -85,7 +92,6 @@
 				</li>
 				
 				
-
 				<!-- User Login Dropdown -->
 				<li class="dropdown user">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">

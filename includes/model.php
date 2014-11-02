@@ -117,17 +117,14 @@ class MainModel {
 		return $data;
 	}
 	
-	
-	
 	// get get Price Per Unit
 	public function getPricePerUnit($filter) {
 		$qry = ('Select id, sms_credits_value as sms_credits_value, zonesms_credits_value as zonesms_credits_value, mms_credits_value as mms_credits_value, cost_per_sms as cost_per_sms , cost_per_zonesms as cost_per_zonesms,cost_per_mms as cost_per_mms, cost_per_voice as cost_per_voice, created as created from user_credit_purchases where user_id= ' . $filter . '  ORDER BY  user_credit_purchases.created DESC ');
-	
+		
 		$data = $this->execGetQuery ( $qry );
-		//print_r($data);
+		// print_r($data);
 		return $data;
 	}
-	
 	
 	// get UserByEmails
 	public function getUserByEmail($filter) {
@@ -181,6 +178,34 @@ class MainModel {
 		$qry .= "NOW()";
 		$qry .= ')';
 		
+		return $this->execQuery ( $qry );
+	}
+	
+	// add Testimony
+	public function addUserTestimony($package = array()) {
+		$qry = 'INSERT INTO user_testimonials(user_id,remark,created) values(';
+		
+		$qry .= "'" . mysql_escape_string ( $package ['user_id'] ) . "'" . ',';
+		
+		$qry .= "'" . mysql_escape_string ( $package ['remark'] ) . "'" . ',';
+		
+		$qry .= "NOW()";
+		$qry .= ')';
+		
+		return $this->execQuery ( $qry );
+	}
+	
+	
+	// update Userr Testimony
+	public function updateUserTestimony($approved, $id) {
+		$qry = 'UPDATE user_testimonials set ';
+	
+		$qry .= "approved=" .  $approved  ;
+	
+		$qry .= " where user_testimonials.id = " . $id;
+	
+		 
+	
 		return $this->execQuery ( $qry );
 	}
 	// add credit value for customers by admin
@@ -279,23 +304,19 @@ class MainModel {
 		return $this->execQuery ( $qry );
 	}
 	
-	
 	// update Users
 	public function updateUsers($Users = array()) {
 		$qry = 'update users set ';
-	
+		
 		$qry .= "company_name = '" . mysql_escape_string ( $Users ['company_name'] ) . "'" . ',';
-	
-		 
-		 $qry .= "company_logo= '" . mysql_escape_string ( $Users ['company_logo'] ) . "'" . ',';
+		
+		$qry .= "company_logo= '" . mysql_escape_string ( $Users ['company_logo'] ) . "'" . ',';
 		$qry .= "designation = '" . mysql_escape_string ( $Users ['designation'] ) . "'";
 		
 		$qry .= " where id =" . $Users ['id'];
-	//	print_r($qry);
+		// print_r($qry);
 		return $this->execQuery ( $qry );
 	}
-	
-	
 	
 	// get Package
 	public function getPackage($id) {
@@ -313,6 +334,32 @@ class MainModel {
 		
 				LEft JOIN features ON packages.id=features.package_id GROUP BY packages.title";
 		}
+		$data = $this->execGetQuery ( $qry );
+		return $data;
+	}
+	
+	// get user testimonials
+	public function getUserTestimonials($approved = null) {
+		if ($approved==true) {
+			
+			$qry = "SELECT user_testimonials.id,   user_testimonials.user_id,user_testimonials.remark  ,users.firstname, 
+					users.lastname, users.email, users.company_logo, users.designation from  user_testimonials   
+					 LEFT JOIN users on  
+					user_testimonials.user_id = users.id
+	
+			 Where user_testimonials.approved = " . true . '  order by user_testimonials.created desc limit 7';
+		} 
+
+		else {
+			$qry = "SELECT user_testimonials.id,  
+			 			 user_testimonials.user_id,user_testimonials.remark  
+					,users.firstname, users.lastname, users.email, users.company_logo, 
+					users.designation from  user_testimonials LEFT JOIN users on 
+					user_testimonials.user_id = users.id order by user_testimonials.created desc limit 7";
+			
+		//	return $qry;
+		}
+		 
 		$data = $this->execGetQuery ( $qry );
 		return $data;
 	}
@@ -383,8 +430,6 @@ class MainModel {
 		return $data;
 	}
 	
-	
-	
 	// update Package
 	public function updateFeature($package = array()) {
 		$qry = 'update features set ';
@@ -397,7 +442,6 @@ class MainModel {
 		$qry .= " where id =" . $package ['id'];
 		return $this->execQuery ( $qry );
 	}
-	
 	
 	// Customer related zone
 	public function isUserACustomer($user) {
@@ -540,7 +584,6 @@ class MainModel {
 		return $this->execQuery ( $qry );
 	}
 	
-	
 	// add Banner
 	public function addBanner($singleSmS = array()) {
 		$qry = 'INSERT INTO banners(`title`,`details`,`image_link`,`image_type`,`created`) VALUES(';
@@ -548,9 +591,7 @@ class MainModel {
 		$qry .= "'" . mysql_escape_string ( $singleSmS ['details'] ) . "'" . ',';
 		$qry .= "'" . mysql_escape_string ( $singleSmS ['image_link'] ) . "'" . ',';
 		$qry .= "'" . mysql_escape_string ( $singleSmS ['image_type'] ) . "'" . ',';
-	
 		
-	
 		$qry .= "NOW()";
 		$qry .= ')';
 		// print_r($qry);
@@ -562,9 +603,7 @@ class MainModel {
 		$qry = 'INSERT INTO faqs(`title`,`details`,`created`) VALUES(';
 		$qry .= "'" . mysql_escape_string ( $singleSmS ['title'] ) . "'" . ',';
 		$qry .= "'" . mysql_escape_string ( $singleSmS ['details'] ) . "'" . ',';
-		 
-	
-	
+		
 		$qry .= "NOW()";
 		$qry .= ')';
 		// print_r($qry);
@@ -708,33 +747,58 @@ class MainModel {
 		
 		return $this->execInsertQuery ( $qry );
 	}
-	public function get_user_zone_sms_requests_count($conn,$filter= null) {
+	public function get_user_zone_sms_requests_count($conn, $filter = null) {
 		$table = 'user_zone_sms';
-		if($filter != null){
-		$query = 'SELECT COUNT(*) FROM ' . $table .'  where   '. $filter;
-		}
-		
-		else{
-			$query = 'SELECT COUNT(*) FROM ' . $table;
+		if ($filter != null) {
+			$query = 'SELECT COUNT(*) FROM ' . $table . '  where   ' . $filter;
 		} 
-	 // print_r($query);
+
+		else {
+			$query = 'SELECT COUNT(*) FROM ' . $table;
+		}
+		// print_r($query);
+		return $this->get_pdo_count ( $conn, $query );
+	}
+	
+	//Get Testimonials count
+	
+	public function get_user_testimonials_count($conn, $filter = null) {
+		$table = 'user_testimonials';
+		if ($filter != null) {
+			$query = 'SELECT COUNT(*) FROM ' . $table . '  where   ' . $filter;
+		}
+	
+		else {
+			$query = 'SELECT COUNT(*) FROM ' . $table;
+		}
+		// print_r($query);
 		return $this->get_pdo_count ( $conn, $query );
 	}
 	// GEt User ZoneSMS Requests
-	public function getUsersZonesmsRequests($conn, $limit_start, $limit_end,$user_id=null,$status=null) {
-		if (($limit_end == - 10) && ($limit_start == - 10) && (!$user_id && !$status)) {
+	public function getUsersZonesmsRequests($conn, $limit_start, $limit_end, $user_id = null, $status = null) {
+		if (($limit_end == - 10) && ($limit_start == - 10) && (! $user_id && ! $status)) {
 			// $query = ('SELECT user_contacts.firstname,user_contacts.lastname, user_contacts.phone, user_contacts.gender, user_contacts.birthday FROM user_contacts INNER JOIN users ON user_contacts.user_id = users.id where user_id=' . $user_id . ' ORDER BY user_contacts.firstname ASC');
 			$query = ('SELECT  user_zone_sms.* , users.* from user_zone_sms left JOIN users ON user_zone_sms.user_id = users.id  ' . ' ORDER BY  user_zone_sms.created DESC LIMIT :start,:end');
-		} elseif (($limit_end != - 10) && ($limit_start != - 10) && (!$user_id && !$status)) 
-	 {
+		} elseif (($limit_end != - 10) && ($limit_start != - 10) && (! $user_id && ! $status)) {
 			// $query = ('SELECT user_contacts.id, user_contacts.firstname,user_contacts.lastname, user_contacts.phone, user_contacts.gender, user_contacts.birthday FROM user_contacts INNER JOIN users ON user_contacts.user_id = users.id where user_id=' . $user_id . ' ORDER BY user_contacts.firstname ASC LIMIT :start,:end');
 			$query = ('SELECT  user_zone_sms.* ,users.* from user_zone_sms left JOIN users ON user_zone_sms.user_id = users.id ' . ' ORDER BY  user_zone_sms.created DESC LIMIT :start,:end');
+		} elseif (($limit_end != - 10) && ($limit_start != - 10) && ($user_id && $status)) {
+			$query = ('SELECT  user_zone_sms.* ,users.* from user_zone_sms left JOIN users ON user_zone_sms.user_id = users.id where user_id=' . $user_id . ' and status=\'' . $status . '\' ORDER BY  user_zone_sms.created DESC LIMIT :start,:end');
 		}
-		elseif (($limit_end != - 10) && ($limit_start != - 10) && ($user_id && $status)) {
-			$query = ('SELECT  user_zone_sms.* ,users.* from user_zone_sms left JOIN users ON user_zone_sms.user_id = users.id where user_id='.$user_id.' and status=\''.$status . '\' ORDER BY  user_zone_sms.created DESC LIMIT :start,:end');
-			
-		}
-		   ///print_r($query);
+		// /print_r($query);
+		return $this->get_pdo_record ( $conn, $query, $limit_start, $limit_end );
+	}
+	
+	// GEt User Testimonials
+	public function getUserTestimonialsPDO($conn, $limit_start, $limit_end) {
+		 	// $query = ('SELECT user_contacts.firstname,user_contacts.lastname, user_contacts.phone, user_contacts.gender, user_contacts.birthday FROM user_contacts INNER JOIN users ON user_contacts.user_id = users.id where user_id=' . $user_id . ' ORDER BY user_contacts.firstname ASC');
+			$query = "SELECT user_testimonials.id,  
+			 			 user_testimonials.user_id,user_testimonials.remark , user_testimonials.approved 
+					,users.firstname, users.lastname, users.email, users.company_logo, 
+					users.designation from  user_testimonials LEFT JOIN users on 
+					user_testimonials.user_id = users.id order by user_testimonials.created desc limit :start , :end";
+	 
+		// /print_r($query);
 		return $this->get_pdo_record ( $conn, $query, $limit_start, $limit_end );
 	}
 	// GEt Banners
@@ -742,65 +806,52 @@ class MainModel {
 		if (($limit_end == - 10) && ($limit_start == - 10)) {
 			// $query = ('SELECT user_contacts.firstname,user_contacts.lastname, user_contacts.phone, user_contacts.gender, user_contacts.birthday FROM user_contacts INNER JOIN users ON user_contacts.user_id = users.id where user_id=' . $user_id . ' ORDER BY user_contacts.firstname ASC');
 			$query = ('SELECT  title, details, image_link, image_type from banners  ORDER BY  title DESC LIMIT :start,:end');
-		}  
-		elseif  (($limit_end != - 10) && ($limit_start != - 10)) {
+		} elseif (($limit_end != - 10) && ($limit_start != - 10)) {
 			$query = ('SELECT title, details, image_link, image_type  from banners ORDER BY title DESC LIMIT :start,:end');
-				
-		}
-		 //print_r($query);
-		return $this->get_pdo_record ( $conn, $query, $limit_start, $limit_end );
-	}
-	
-	//Get FAQs
-	
-	
-	public function getFAQs($conn, $limit_start, $limit_end) {
-		if (($limit_end == - 10) && ($limit_start == - 10) && (!$user_id && !$status)) {
-			// $query = ('SELECT user_contacts.firstname,user_contacts.lastname, user_contacts.phone, user_contacts.gender, user_contacts.birthday FROM user_contacts INNER JOIN users ON user_contacts.user_id = users.id where user_id=' . $user_id . ' ORDER BY user_contacts.firstname ASC');
-			$query = ('SELECT  title , detail  from faqs ORDER BY  title DESC LIMIT :start,:end');
-		}  
-		elseif (($limit_end != - 10) && ($limit_start != - 10) ) {
-			$query = ('SELECT  title, details from faqs ORDER BY title DESC LIMIT :start,:end');
-	
 		}
 		// print_r($query);
 		return $this->get_pdo_record ( $conn, $query, $limit_start, $limit_end );
 	}
 	
+	// Get FAQs
+	public function getFAQs($conn, $limit_start, $limit_end) {
+		if (($limit_end == - 10) && ($limit_start == - 10) && (! $user_id && ! $status)) {
+			// $query = ('SELECT user_contacts.firstname,user_contacts.lastname, user_contacts.phone, user_contacts.gender, user_contacts.birthday FROM user_contacts INNER JOIN users ON user_contacts.user_id = users.id where user_id=' . $user_id . ' ORDER BY user_contacts.firstname ASC');
+			$query = ('SELECT  title , detail  from faqs ORDER BY  title DESC LIMIT :start,:end');
+		} elseif (($limit_end != - 10) && ($limit_start != - 10)) {
+			$query = ('SELECT  title, details from faqs ORDER BY title DESC LIMIT :start,:end');
+		}
+		// print_r($query);
+		return $this->get_pdo_record ( $conn, $query, $limit_start, $limit_end );
+	}
 	
 	// GEt User ZoneSMS Single Request
 	public function getUserZonesmsRequest($id) {
-		 
-			// $query = ('SELECT user_contacts.id, user_contacts.firstname,user_contacts.lastname, user_contacts.phone, user_contacts.gender, user_contacts.birthday FROM user_contacts INNER JOIN users ON user_contacts.user_id = users.id where user_id=' . $user_id . ' ORDER BY user_contacts.firstname ASC LIMIT :start,:end');
-			$query = ('SELECT   user_zone_sms.* ,users.id as u_id, users.email,users.firstname, users.lastname from user_zone_sms left JOIN users ON user_zone_sms.user_id = users.id  ' . ' where user_zone_sms.id='. $id);
-		 
+		
+		// $query = ('SELECT user_contacts.id, user_contacts.firstname,user_contacts.lastname, user_contacts.phone, user_contacts.gender, user_contacts.birthday FROM user_contacts INNER JOIN users ON user_contacts.user_id = users.id where user_id=' . $user_id . ' ORDER BY user_contacts.firstname ASC LIMIT :start,:end');
+		$query = ('SELECT   user_zone_sms.* ,users.id as u_id, users.email,users.firstname, users.lastname from user_zone_sms left JOIN users ON user_zone_sms.user_id = users.id  ' . ' where user_zone_sms.id=' . $id);
+		
 		// print_r($query);
-		$d= $this->execGetQuery($query);
-		return $d[0];
+		$d = $this->execGetQuery ( $query );
+		return $d [0];
 	}
-	//Approve zonesms request 
-	
-	public function approveZonesmsRequest($id){
-		$query = "update user_zone_sms set status='approved'  where id=".$id ;
-		  $this->execQuery($query);
-		  return $this->getUserZonesmsRequest($id);
-		
+	// Approve zonesms request
+	public function approveZonesmsRequest($id) {
+		$query = "update user_zone_sms set status='approved'  where id=" . $id;
+		$this->execQuery ( $query );
+		return $this->getUserZonesmsRequest ( $id );
 	}
 	
-	//Reject zonesms request
-	
-	public function rejectZonesmsRequest($id){
-		$query = "update user_zone_sms set status='reject'  where id=".$id ;
-		$this->execQuery($query);
-		return $this->getUserZonesmsRequest($id);
-	
+	// Reject zonesms request
+	public function rejectZonesmsRequest($id) {
+		$query = "update user_zone_sms set status='reject'  where id=" . $id;
+		$this->execQuery ( $query );
+		return $this->getUserZonesmsRequest ( $id );
 	}
-	//check zonesms approval status 
-	
-	public function checkUserZonesmsApproval($user_id){
-		
-			$query = ('SELECT   user_zone_sms.* ,users.id as u_id, users.email,users.firstname, users.lastname from user_zone_sms left JOIN users ON user_zone_sms.user_id = users.id  ' . ' where user_zone_sms.user_id='. $user_id . ' and user_zone_sms.status ="approved"');
-	  return $this->execGetQuery($query);
+	// check zonesms approval status
+	public function checkUserZonesmsApproval($user_id) {
+		$query = ('SELECT   user_zone_sms.* ,users.id as u_id, users.email,users.firstname, users.lastname from user_zone_sms left JOIN users ON user_zone_sms.user_id = users.id  ' . ' where user_zone_sms.user_id=' . $user_id . ' and user_zone_sms.status ="approved"');
+		return $this->execGetQuery ( $query );
 	}
 	// Private functions
 	private function get_pdo_count($conn, $query) {
@@ -860,18 +911,20 @@ class MainModel {
 		mysql_close ();
 	}
 	private function execGetQuery($qry) {
+	  
 		$DB_CONN = $this->start_db_connection ();
 		
 		global $DBNAME;
 		mysql_select_db ( $DBNAME );
 		$data = array ();
 		$result = mysql_query ( $qry, $DB_CONN ) or die ( mysql_error () );
+		 
 		while ( $row = mysql_fetch_assoc ( $result ) ) {
 			array_push ( $data, $row );
 		}
 		
 		mysql_close ();
-		
+		 
 		return $data;
 	}
 	private function execSingleQueryResult($qry) {

@@ -82,7 +82,11 @@ if ($_POST ['Package'] && ! $_POST ['_method']) {
 	$mc->addPackage ( $_POST ['Package'], $_FILES );
 }
 
-
+// Add user testimony
+if ($_POST ['Testimonial'] && ! $_POST ['_method']) {
+	// print_r($_FILES);
+	$mc->addUserTestimony ( $_POST ['Testimonial'] );
+}
 
 // Edit User Profile
 if (($_POST ['_method'] == 'put') && ($_POST ['MyProfile'])) {
